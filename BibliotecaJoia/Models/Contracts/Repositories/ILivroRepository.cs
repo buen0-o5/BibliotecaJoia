@@ -8,6 +8,8 @@ namespace BibliotecaJoia.Models.Contracts.Repositories
 {
     public interface ILivroRepository
     {
+        
+        //Essa interface  lida com a camada de acesso aos dados
         void Cadastrar(LivroDto livro);
         List<LivroDto> Listar();
 

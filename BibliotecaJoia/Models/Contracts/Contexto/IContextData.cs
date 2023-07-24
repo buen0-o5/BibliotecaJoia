@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Models.Contracts.Contexto
 {
+    //Interface que estabelece um conjunto de
+    //operações básicas para interagir com a fonte de dados que armazena informações sobre livros
+    //contexto de dados independente
     public interface IContextData
     {
         void Cadastrar(LivroDto livro);

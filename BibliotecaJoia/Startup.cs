@@ -1,3 +1,4 @@
+using BibliotecaJoia.Models.Contexts;
 using BibliotecaJoia.Models.Contracts.Contexto;
 using BibliotecaJoia.Models.Contracts.Repositories;
 using BibliotecaJoia.Models.Contracts.Services;
@@ -29,15 +30,44 @@ namespace BibliotecaJoia
         public void ConfigureServices(IServiceCollection services) //modificado injeçao de dependencia
         {
             services.AddControllersWithViews();
-            
 
-            //Injeçao de dependencia 
-            services.AddSingleton<IContextData, ContextDataFake>();
-            services.AddSingleton<IConnectionManager, ConnectionManager>();
+
+            // Injeção de dependência
+            // Registra as implementações das interfaces ILivroRepository e ILivroService,
+            // para que sejam injetadas automaticamente quando necessário.
 
             services.AddScoped<ILivroRepository, LivroRepository>();
-            services.AddScoped<ILivroService, LivroService>();
+            services.AddScoped<ILivroService, LivroService>(); // Implementar de acordo com o escopo da aplicação
+
+            // Forma dinâmica de indicar qual tipo de DataSource será utilizado 
+            ConfigureDataSource(services);
         }
+        public void ConfigureDataSource(IServiceCollection services)
+        {
+            // Método que define qual tipo de banco de dados será usado.
+            // Definindo o tipo de DataSource que será usado na aplicação.
+            // Obtém a configuração "DataSource" do arquivo de configuração (appsettings.json) para determinar o tipo de DataSource.
+            var datasource = Configuration["DataSource"];
+
+            // Utilizando uma estrutura de switch-case para determinar o tipo de DataSource com base na configuração obtida.
+            switch (datasource) 
+            {
+                // Caso a configuração seja "Local", utiliza o ContextDataFake e o ConnectionManagerFake,
+                // que são implementações falsas dos contextos e conexões para fins de desenvolvimento local e testes.
+                case "Local":
+                    services.AddSingleton<IContextData, ContextDataFake>();
+                    break;
+                // Caso a configuração seja "SqlServer", utiliza o ContextDataSqlServer e o ConnectionManager,
+                // que são implementações para conexão com o banco de dados SQL Server.
+                // O ConnectionManager é registrado como Singleton, ou seja, será instanciado apenas uma vez para a aplicação inteira.
+                case "SqlServer":
+                    services.AddSingleton<IContextData, ContextDataSqlServer>();
+                    services.AddSingleton<IConnectionManager, ConnectionManager>();//instanciando apenas uma vez a classe
+                    break;
+            }
+
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

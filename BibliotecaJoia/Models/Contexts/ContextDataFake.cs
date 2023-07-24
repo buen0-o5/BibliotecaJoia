@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BibliotecaJoia.Models.Repositories
+namespace BibliotecaJoia.Models.Contexts
 {
     public  class ContextDataFake : IContextData
     {
