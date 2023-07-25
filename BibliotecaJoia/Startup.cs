@@ -36,12 +36,28 @@ namespace BibliotecaJoia
             // Registra as implementações das interfaces ILivroRepository e ILivroService,
             // para que sejam injetadas automaticamente quando necessário.
 
-            services.AddScoped<ILivroRepository, LivroRepository>();
-            services.AddScoped<ILivroService, LivroService>(); // Implementar de acordo com o escopo da aplicação
+            AddDependenciesRepositories(services);
+            AddDependenciesServices(services);
+
 
             // Forma dinâmica de indicar qual tipo de DataSource será utilizado 
             ConfigureDataSource(services);
         }
+
+        public void AddDependenciesRepositories(IServiceCollection services)
+        {
+            services.AddScoped<ILivroRepository, LivroRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        }
+        public void AddDependenciesServices(IServiceCollection services)
+        {
+            services.AddScoped<ILivroService, LivroService>(); // Implementar de acordo com o escopo da aplicação
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+
+        }
+
         public void ConfigureDataSource(IServiceCollection services)
         {
             // Método que define qual tipo de banco de dados será usado.

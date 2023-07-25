@@ -1,5 +1,6 @@
 ﻿using BibliotecaJoia.Models.Contracts.Contexto;
 using BibliotecaJoia.Models.DTO;
+using BibliotecaJoia.Models.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,27 +11,42 @@ namespace BibliotecaJoia.Models.Contexts
     public  class ContextDataFake : IContextData
     {
 
-        private static List<LivroDto> livros;
+        private static List<Livro> livros = new List<Livro>();
 
         public ContextDataFake()
         {
-            livros = new List<LivroDto>();
+          //  livros = new List<Livro>();
             InitializeData();
         }
 
-        public void Atualizar(LivroDto livro)
+        public void AtualizarCliente(Cliente cliente)
         {
-            var objPersquisa = PesquisarPorId(livro.Id);
+            throw new NotImplementedException();
+        }
+
+        public void AtualizarLivro(Livro livro)
+        {
+            var objPersquisa = PesquisarLivroPorId(livro.Id);
             livros.Remove(objPersquisa);
 
             objPersquisa.Nome = livro.Nome;
             objPersquisa.Editora = livro.Editora;
             objPersquisa.Autor = livro.Autor;
 
-            Cadastrar(objPersquisa);
+            CadastrarLivro(objPersquisa);
         }
 
-        public void Cadastrar(LivroDto livro)
+        public void AtualizarUsuario(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CadastrarCliente(Cliente cliente)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CadastrarLivro(Livro livro)
         {
             try
             {
@@ -42,11 +58,26 @@ namespace BibliotecaJoia.Models.Contexts
             }
         }
 
-        public void Excluir(string id)
+        public void CadastrarUsuario(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UsuarioDto EfetuarLogin(UsuarioDto usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExcluirCliente(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExcluirLivro(string id)
         {
             try
             {
-                var objPesquisa = PesquisarPorId(id);
+                var objPesquisa = PesquisarLivroPorId(id);
                 livros.Remove(objPesquisa);
             }
             catch (Exception ex)
@@ -55,7 +86,17 @@ namespace BibliotecaJoia.Models.Contexts
             }
         }
 
-        public List<LivroDto> Listar()
+        public void ExcluirUsuario(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Cliente> ListarCliente()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Livro> ListarLivro()
         {
             try
             {
@@ -70,7 +111,17 @@ namespace BibliotecaJoia.Models.Contexts
         
         }
 
-        public LivroDto PesquisarPorId(string id)
+        public List<Usuario> ListarUsuario()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Cliente PesquisarClientePorId(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Livro PesquisarLivroPorId(string id)
         {
             try
             {
@@ -82,21 +133,26 @@ namespace BibliotecaJoia.Models.Contexts
             }
         }
 
+        public Usuario PesquisarUsuarioPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         private void InitializeData()
         {
-            var livro = new LivroDto("Implementando Domain-Drive Design", "Vaugh Vernos", "Alta Books");
+            var livro = new Livro { Nome = "Implementando Domain-Drive Design", Autor = "Vaugh Vernos",Editora = "Alta Books"};
             livros.Add(livro);
            
-            livro = new LivroDto("Domain-Drive Design", "Eric Evans", "Alta Books");
+            livro = new Livro { Nome = "Domain-Drive Design", Autor = "Eric Evans", Editora =  "Alta Books" };
             livros.Add(livro);
 
-            livro = new LivroDto("Redes Guia Pratico", "Carlor E. Morimoto", "Sul Editores");
+            livro = new Livro{ Nome = "Redes Guia Pratico", Autor = "Carlor E. Morimoto", Editora = "Sul Editores" };
             livros.Add(livro);
 
-            livro = new LivroDto("PHP Programando com Orientaçao a Objeto", "Pablo Dall'Oglio ", "Novatec");
+            livro = new Livro{ Nome = "PHP Programando com Orientaçao a Objeto", Autor = "Pablo Dall'Oglio ", Editora = "Novatec" };
             livros.Add(livro);
 
-            livro = new LivroDto("Introduçao a Programaçao com Python", "Nilo N.C mENEZAES", "Novatec");
+            livro = new Livro { Nome = "Introduçao a Programaçao com Python", Autor = "Nilo N.C mENEZAES", Editora = "Novatec" };
             livros.Add(livro);
 
         }

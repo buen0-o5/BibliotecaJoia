@@ -1,6 +1,7 @@
 ﻿using BibliotecaJoia.Models.Contracts.Contexto;
 using BibliotecaJoia.Models.Contracts.Repositories;
 using BibliotecaJoia.Models.DTO;
+using BibliotecaJoia.Models.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,30 +23,30 @@ namespace BibliotecaJoia.Models.Repositories
             _contextData = contextData;
         }
 
-        public void Atualizar(LivroDto livro)
+        public void Atualizar(Livro livro)
         {
-            _contextData.Atualizar(livro);
+            _contextData.AtualizarLivro(livro);
         }
 
-        public void Cadastrar(LivroDto livro)
+        public void Cadastrar(Livro livro)
         {
-            _contextData.Cadastrar(livro);
+            _contextData.CadastrarLivro(livro);
         }
 
         public void Excluir(string id)
         {
-            _contextData.Excluir(id);
+            _contextData.ExcluirLivro(id);
 
         }
 
-        public List<LivroDto> Listar()
+        public List<Livro> Listar()
         {
-            return _contextData.Listar(); 
+            return _contextData.ListarLivro(); 
         }
 
-        public LivroDto PesquisarPorId(string id)
+        public Livro PesquisarPorId(string id)
         {
-            return _contextData.PesquisarPorId(id);
+            return _contextData.PesquisarLivroPorId(id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BibliotecaJoia.Models.Entidades;
+using BibliotecaJoia.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace BibliotecaJoia.Models.DTO
     public class LivroDto : EntidadeBase
     {
         //Atributos do livro
+        
         public string Nome { get; set; }
         public string Autor { get; set; }
         public string Editora { get; set; }
+        public int StatusLivroId { get; set; }
+        public string Status { get; set; }
+
+
 
         //Construtor padrão utilizado para fins de formulário (não recebe parâmetros).
         //Pode ser usado pelo framework de vinculação de dados para criar objetos LivroDto a partir dos dados de formulário.
@@ -23,22 +29,36 @@ namespace BibliotecaJoia.Models.DTO
             
         }
 
-        // Construtor que recebe o "id", "nome", "autor" e "editora" do livro como parâmetros.
-        // Esse construtor é usado quando é necessário criar um LivroDto com um "id" específico,
-        // por exemplo, ao recuperar dados do banco de dados e mapeá-los para objetos LivroDto.
-        public LivroDto(string id, string nome, string autor, string editora)
-            :this(nome, autor,editora)
-        {
-            this.Id = id;
-        }
+        //// Construtor que recebe o "id", "nome", "autor" e "editora" do livro como parâmetros.
+        //// Esse construtor é usado quando é necessário criar um LivroDto com um "id" específico,
+        //// por exemplo, ao recuperar dados do banco de dados e mapeá-los para objetos LivroDto.
+        //public LivroDto(string id, string nome, string autor, string editora)
+        //    :this(nome, autor,editora)
+        //{
+        //    this.Id = id;
+        //}
 
         // Construtor que recebe o "nome", "autor" e "editora" do livro como parâmetros.
         // Esse construtor é usado quando um novo livro está sendo criado e ainda não possui um "id".
-        public LivroDto( string nome, string autor, string editora)
+        //public LivroDto( string nome, string autor, string editora)
+        //{
+        //    this.Nome = nome;
+        //    this.Autor = autor;
+        //    this.Editora = editora;
+       
+
+        //}
+        public Livro CoverterParaEntidade()
         {
-            this.Nome = nome;
-            this.Autor = autor;
-            this.Editora = editora;
+            return new Livro
+            {
+                Id = this.Id,
+                Nome = this.Nome,
+                Autor = this.Autor,
+                Editora = this.Editora,
+                StatusLivro = GerenciadorDeStatus.PesquisarStatusDoLivroPeloId(this.StatusLivroId)
+              //5:25
+            };
         }
 
     }

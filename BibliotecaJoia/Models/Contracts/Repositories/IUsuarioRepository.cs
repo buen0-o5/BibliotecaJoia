@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Models.Contracts.Repositories
 {
-    public interface ILivroRepository : IRepository<Livro, string>
+   public interface IUsuarioRepository : IRepository<Usuario, int>
     {
-        
-        //Essa interface  lida com a camada de acesso aos dados
-      
+        UsuarioDto EfetuarLogin(UsuarioDto usuario);
     }
 }

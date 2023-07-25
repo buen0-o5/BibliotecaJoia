@@ -73,15 +73,15 @@ namespace BibliotecaJoia.Controllers
         // Essa action é acionada quando o formulário é submetido por meio de um método HTTP POST.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Nome, Autor, Editora")]LivroDto livro)
+        public IActionResult Create([Bind("Nome, Autor, Editora")] LivroDto livro)
         {
 
             try
             {
-        // O parâmetro "livro" contém os dados enviados pelo formulário, como o nome, autor e editora do livro.
+                // O parâmetro "livro" contém os dados enviados pelo formulário, como o nome, autor e editora do livro.
 
-        // Chama o serviço _livroService para cadastrar (criar) o novo livro com base nos dados fornecidos.
-
+                // Chama o serviço _livroService para cadastrar (criar) o novo livro com base nos dados fornecidos.
+         
                 _livroService.Cadastrar(livro);
                 return RedirectToAction("List");
             }
