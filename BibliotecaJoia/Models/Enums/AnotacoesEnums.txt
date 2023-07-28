@@ -1,0 +1,4 @@
+﻿Enumerações que são utilizadas para definir um conjunto de constantes.
+Cada constante da enumeração é um identificador único que representa uma consulta específica.
+
+Classe GerenciadorDeStatus:é responsável por gerenciar os diferentes estados (status) 

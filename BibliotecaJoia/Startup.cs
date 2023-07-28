@@ -29,9 +29,10 @@ namespace BibliotecaJoia
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) //modificado injeçao de dependencia
         {
-            services.AddControllersWithViews();
+           
 
-
+            ConfigureApp(services);
+           
             // Injeção de dependência
             // Registra as implementações das interfaces ILivroRepository e ILivroService,
             // para que sejam injetadas automaticamente quando necessário.
@@ -44,18 +45,33 @@ namespace BibliotecaJoia
             ConfigureDataSource(services);
         }
 
+        public void ConfigureApp(IServiceCollection services)
+        {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+        }
+
         public void AddDependenciesRepositories(IServiceCollection services)
         {
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IEmprestimoLivroRepository, EmprestimoLivroRepository>();
+          
         }
         public void AddDependenciesServices(IServiceCollection services)
         {
             services.AddScoped<ILivroService, LivroService>(); // Implementar de acordo com o escopo da aplicação
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
-
+            services.AddScoped<IEmprestimoLivroService, EmprestimoLivroService>();
         }
 
         public void ConfigureDataSource(IServiceCollection services)
@@ -103,6 +119,8 @@ namespace BibliotecaJoia
 
             app.UseRouting();
 
+            app.UseSession();
+           
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,0 +1,5 @@
+﻿A pasta "DTO" é um diretório usado para armazenar objetos de transferência de dados,
+que atuam como uma ponte de comunicação simples e eficiente entre a interface do usuário
+(página) e outras camadas da aplicação, como a camada de serviço. Eles ajudam a evitar
+acoplamento excessivo e a otimizar a transferência de dados entre as diferentes partes 
+do sistema.

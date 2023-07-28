@@ -347,12 +347,13 @@ namespace BibliotecaJoia.Models.Contexts
                     var nome = colunas[1].ToString();
                     var autor = colunas[2].ToString();
                     var editora = colunas[3].ToString();
+                    var statusLivroId = colunas[4].ToString();
 
                     // Cria um novo objeto LivroDto com os valores extraídos das colunas
-                    var livro = new Livro { Id = id, Nome = nome, Autor = autor, Editora = editora };
-
-                    // Adiciona o livro à coleção (lista) de livros
-                    livros.Add(livro);
+                    var livro = new Livro { Id = id, Nome = nome, Autor = autor, Editora = editora, StatusLivroId = Int32.Parse(statusLivroId) };
+                    livro.StatusLivro = GerenciadorDeStatus.PesquisarStatusDoLivroPeloId(livro.StatusLivroId);
+                // Adiciona o livro à coleção (lista) de livros
+                livros.Add(livro);
                 }
 
                 // Libera recursos, definindo os objetos como nulos para permitir a coleta de lixo
@@ -620,6 +621,98 @@ namespace BibliotecaJoia.Models.Contexts
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+
+        #endregion
+
+        #region Emprestimo
+
+        public void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro)
+        {
+            //processo de duas opereaçoes (conjunto de passos)
+            SqlTransaction transaction = null;
+            try
+            {
+                _connection.Open();//abrindo conexao
+                transaction = _connection.BeginTransaction(); //iniciando transaçao de banco de dados
+
+                var query = SqlManager.GetSql(TSql.EFETUAR_EMPRESTIMO_LIVRO);
+              
+                var command = new SqlCommand(query, _connection, transaction);
+
+
+                command.Parameters.Add("@clienteId", SqlDbType.VarChar).Value = emprestimoLivro.ClienteId;
+                command.Parameters.Add("@usuarioId", SqlDbType.Int).Value = emprestimoLivro.UsuarioId;
+                command.Parameters.Add("@livroId", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
+                command.Parameters.Add("@dataEmprestimo", SqlDbType.DateTime).Value = emprestimoLivro.DataEmprestimo;
+                command.Parameters.Add("@dataDevolucao", SqlDbType.DateTime).Value = emprestimoLivro.DataDevolucao;
+
+                command.ExecuteNonQuery();
+
+                var query2 = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_LIVRO);
+                var command2 = new SqlCommand(query, _connection, transaction);
+
+                command2.Parameters.Add("@id", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
+                command2.Parameters.Add("@statusLivroId", SqlDbType.Int).Value = StatusLivro.EMPRESTADO.GetHashCode(); //retornando o codigo referente a essa opçao
+
+                command2.ExecuteNonQuery();
+
+                transaction.Commit(); //Confrima as alteraçoes nas duas consultas
+
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                    transaction.Rollback(); //se caso houver erro em apenas 1 das operaçoes e na outra ele executar, entao esse metodo desfaz a operaçao que ele executou
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+
+        public void EfetuarDevolucao(EmprestimoLivro emprestimoLivro)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                _connection.Open();//abrindo conexao
+                transaction = _connection.BeginTransaction();
+
+                var query = SqlManager.GetSql(TSql.EFETUAR_DEVOLUCAO_LIVRO);
+                var command = new SqlCommand(query, _connection, transaction);
+
+
+                command.Parameters.Add("@clienteId", SqlDbType.VarChar).Value = emprestimoLivro.ClienteId;
+                command.Parameters.Add("@usuarioId", SqlDbType.Int).Value = emprestimoLivro.UsuarioId;
+                command.Parameters.Add("@livroId", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
+                command.Parameters.Add("@dataDevolucaoEfetiva", SqlDbType.DateTime).Value = emprestimoLivro.DataDevolucaoEfetiva;
+
+                command.ExecuteNonQuery();
+
+                var query2 = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_LIVRO);
+                var command2 = new SqlCommand(query, _connection, transaction);
+
+                command2.Parameters.Add("@id", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
+                command2.Parameters.Add("@statusLivroId", SqlDbType.Int).Value = StatusLivro.DISPONIVEL.GetHashCode();
+
+                command2.ExecuteNonQuery();
+
+                transaction.Commit(); //Confrima as alteraçoes nas duas consultas
+
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                    transaction.Rollback();
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
             }
         }
         #endregion

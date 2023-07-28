@@ -11,6 +11,7 @@ namespace BibliotecaJoia.Models.Entidades
         public string Nome { get; set; }
         public string Autor { get; set; }
         public string Editora { get; set; }
+        public int StatusLivroId { get; set; }
         public StatusLivro StatusLivro { get; set; }
 
         public Livro()
@@ -22,6 +23,7 @@ namespace BibliotecaJoia.Models.Entidades
         public void Cadastrar()
         {
             this.StatusLivro = StatusLivro.DISPONIVEL;
+            this.StatusLivroId = StatusLivro.GetHashCode();
         }
 
         public LivroDto CoverterParaDto()

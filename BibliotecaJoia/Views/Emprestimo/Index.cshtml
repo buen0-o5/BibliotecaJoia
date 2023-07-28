@@ -2,4 +2,39 @@
     ViewData["Title"] = "Emprestimo";
 }
 
-<h3>Emprestimo de Livros</h3>
+<h1>Emprestimo de Livros</h1>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="EfetuarEmprestimo">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label  class="control-label">Cliente:</label>
+                    <input class="form-control" name="Cliente" id="cliente" />
+                </div>
+
+                <div class="form-group">
+                    <label  class="control-label">Livro:</label>
+                    <input  class="form-control" name="Livro" id="livro" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-primary"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+@section scripts{ 
+    <script>
+        $("#cliente").autocomplete({
+            source: '@Url.Action("PesquisarClientes", "Emprestimo")',
+            minlength: 3
+        });
+
+        $("#livro").autocomplete({
+            source: '@Url.Action("PesquisarLivros", "Emprestimo")',
+            minlength: 3
+        });
+    </script>
+}

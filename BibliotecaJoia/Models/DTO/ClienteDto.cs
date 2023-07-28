@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace BibliotecaJoia.Models.DTO
 {
     //objeto de transferencia
+    //Camada de transporte, ponte entre pagina e a aplicaçao entre a pagina de serviço
+    //consulta
     public class ClienteDto : EntidadeBase
         
     {

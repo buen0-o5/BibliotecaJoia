@@ -22,7 +22,7 @@ namespace BibliotecaJoia.Models.Services
         {
             try
             {
-                var objcliente = cliente.ConverterParaEntidade();
+                var objcliente = cliente.ConverterParaEntidade(); //necessario a conversao para ter acesso ao repository
                 _clienteRepositorio.Atualizar(objcliente);
             }
             catch (Exception ex)

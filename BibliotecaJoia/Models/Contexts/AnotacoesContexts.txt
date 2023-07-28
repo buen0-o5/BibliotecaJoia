@@ -1,0 +1,36 @@
+﻿A pasta "Contexts" é um diretório que é usado para armazenar
+classes que representam os contextos e gerenciamento de dados em um aplicativo
+
+
+ConnectionManager:  é responsável por implementar a interface IConnectionManager 
+e gerenciar a conexão com o banco de dados. 
+
+ContextDataSqlServer: é responsável por implementar a interface IContextData,
+que representa o contexto de acesso aos dados no banco de dados relacional SQL Server.
+
+
+ContextDataFake: é responsável por implementar a interface IContextData,
+que representa o contexto de acesso aos dados no banco de dados interno
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+﻿A pasta "Contracts" é um diretório usado para armazenar interfaces que definem
+os contratos da aplicação. Essas interfaces são chamadas de contratos porque elas
+estabelecem as especificações que outras partes do código devem seguir ao implementá-las.
+Em outras palavras, elas definem os métodos e propriedades que devem ser implementados pelas
+classes que desejam cumprir esse contrato.
+
+Contextos de Dados: Interfaces que estabelecem os métodos para acessar e manipular dados
+em um contexto específico da aplicação
+
+Repositórios: Interfaces que definem as operações que um repositório de dados deve oferecer, 
+como inserir, atualizar, excluir e recuperar dados.Essa interface  lida com a camada de acesso
+aos dados, nesse caso a implementaçao logica desses metodos esta na interface  IContextData
+
+Serviços: Interfaces que descrevem a funcionalidade de um serviço específico da aplicação. 
+Essa interface  lida com a camada de lógica de negócios.

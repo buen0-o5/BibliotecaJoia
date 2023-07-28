@@ -1,10 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BibliotecaJoia</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> <!--Adiconado-->
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -30,14 +34,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="List">Clientes</a>
                         </li>
                         @{
-                            if (TempData["login"] != null)
+                            //Usando a session na view
+                            /*
+                            Nao e possivel usar na _Layout
+                            @page
+                              var login = HttpContext.Session.GetString("_Login"); para trabalhar com essa session e necessario usa a @page(pagina com asp.core padrao)
+                            */
+                            var login = Context.Session.GetString("_Login");
+
+                            if (login != null)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Emprestimo" asp-action="Index">Emprestimo</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <p class="nav-link text-dark">Usuario: @TempData["login"]</p>
+                                    <p class="nav-link text-dark">Usuario: @login </p>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Sair</a>
@@ -65,10 +77,11 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - BibliotecaJoia 
+            &copy; 2023 - BibliotecaJoia
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> <!--Adicionado-->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

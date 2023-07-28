@@ -1,0 +1,2 @@
+﻿A pasta "Entidades" é usada para armazenar as classes que representam as entidades de negócio,
+que contêm os atributos e comportamentos relevantes para o domínio da aplicação. 

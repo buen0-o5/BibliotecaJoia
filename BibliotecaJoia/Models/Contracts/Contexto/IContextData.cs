@@ -40,5 +40,9 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
         void AtualizarUsuario(Usuario usuario);
         void ExcluirUsuario(int id);
         public UsuarioDto EfetuarLogin(UsuarioDto usuario);
+
+        void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro);
+        void EfetuarDevolucao(EmprestimoLivro emprestimoLivro);
+
     }
 }
