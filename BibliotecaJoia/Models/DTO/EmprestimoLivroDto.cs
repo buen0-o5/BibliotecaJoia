@@ -8,13 +8,14 @@ namespace BibliotecaJoia.Models.DTO
 {
     public class EmprestimoLivroDto
     {
+        public int Id { get; set; }
         public string ClienteId { get; set; }
         public ClienteDto Cliente { get; set; }
 
         public string LivroId { get; set; }
         public LivroDto Livro { get; set; }
 
-        public string UsuarioId { get; set; }
+        public int UsuarioId { get; set; }
         public UsuarioDto Usuario { get; set; }
 
 

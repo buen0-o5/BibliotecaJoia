@@ -42,7 +42,11 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
         public UsuarioDto EfetuarLogin(UsuarioDto usuario);
 
         void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro);
-        void EfetuarDevolucao(EmprestimoLivro emprestimoLivro);
+        void EfetuarDevolucao(int emprestimoId, string livroId);
+
+        List<ConsultaEmprestimoDto> consultaEmprestimos();
+        ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
+
 
     }
 }

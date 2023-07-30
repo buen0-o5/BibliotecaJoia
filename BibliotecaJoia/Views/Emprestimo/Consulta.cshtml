@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BibliotecaJoia.Models.DTO.ConsultaEmprestimoDto>
+
+@{
+    ViewData["Title"] = "Consulta";
+}
+
+<h1>Consulta de Emprestimo de Livro</h1>
+
+<p>
+    <a asp-action="Index">Novo Emprestimo Livro</a>
+</p>
+<table class="table table-striped table-bordered" >
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Livro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataEmprestimo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataDevolucao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusLivro)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Livro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEmprestimo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataDevolucao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusLivro)
+            </td>
+            <td>
+                @Html.ActionLink("Detalhes", "Details", new {  nomeCliente = item.Cliente, nomeLivro = item.Livro, DataEmprestimo = item.DataEmprestimo }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

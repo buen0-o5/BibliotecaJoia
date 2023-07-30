@@ -1,4 +1,5 @@
-﻿using BibliotecaJoia.Models.Entidades;
+﻿using BibliotecaJoia.Models.DTO;
+using BibliotecaJoia.Models.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace BibliotecaJoia.Models.Contracts.Repositories
     public interface IEmprestimoLivroRepository
     {
         void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro);
-        void EfetuarDevolucao(EmprestimoLivro emprestimoLivro);
+        void EfetuarDevolucao(int emprestimoId, string livroId);
+        List<ConsultaEmprestimoDto> consultaEmprestimos();
+        ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
+
     }
 }

@@ -48,7 +48,7 @@ namespace BibliotecaJoia.Models.Repositories
                     break;
 
                 case TSql.LISTAR_CLIENTE:
-                    sql = "select convert(varchar(36), id) 'id', nome, cpf, email,fone, statusClienteId  from cliente";
+                    sql = "select convert(varchar(36), id) 'id', nome, cpf, email,fone, statusClienteId  from cliente order by nome";
                     break;
 
                 case TSql.PESQUISAR_CLIENTE:
@@ -61,7 +61,6 @@ namespace BibliotecaJoia.Models.Repositories
 
                 case TSql.EXCLUIR_CLIENTE:
                     sql = "delete from cliente where convert(varchar(36),id) = @id";
-          
                     break;
                 #endregion
 
@@ -95,18 +94,59 @@ namespace BibliotecaJoia.Models.Repositories
 
                 #region Emprestimo
                 case TSql.EFETUAR_EMPRESTIMO_LIVRO:
-                    sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId, dataEmprestimo, dataDevolucao) values(@clienteId, @usuarioId, @livroId, @dataEmprestimo, @dataDevolucao)";
+                    sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId, dataEmprestimo, dataDevolucao) values(convert(binary(36),@clienteId), @usuarioId, convert(binary(36),@livroId), @dataEmprestimo, @dataDevolucao)";
+                                                                                                                    
                     break;
                 case TSql.EFETUAR_DEVOLUCAO_LIVRO:
-                    sql = "update emprestimoLivro set dataDevolucaoEfetiva = @dataDevolucaoEfetiva where clienteId = @clienteId and livroId = @livroId";
+                    sql = "update emprestimoLivro set dataDevolucaoEfetiva = @dataDevolucaoEfetiva  where id = @id";
                     break;
                 case TSql.ATUALIZAR_STATUS_LIVRO:
-                    sql = "update livro set statusLivroId = @statusLivroId where id = @id";
+                    sql = "update livro set statusLivroId = @statusLivroId where convert(varchar(36),id) = @id";
                     break;
+                #endregion
+
+                #region Consulta Emprestimo
+                case TSql.CONSULTAR_EMPRESTIMOS_LIVROS:
+                    sql = @"select 
+                                 l.nome 'livro', l.autor, l.editora,
+                                 c.nome 'cliente', c.cpf, 
+                                 el.dataEmprestimo, el.dataDevolucao, el.dataDevolucaoEfetiva, 
+                                 sl.status 'status do livro', 
+                                 u.login 'biblioteca',
+                                 el.id, convert(varchar(36),l.id) 'livroId'
+                             from 
+                                 livro l inner join
+                                 emprestimoLivro el on el.livroId = l.id inner join
+                                 cliente c on el.clienteId = c.id inner join
+                                 statusLivro sl on l.statusLivroId = sl.id inner join
+                                 usuario u on el.usuarioId = u.id";
+                    break;
+                case TSql.PESQUISAR_EMPRESTIMOS_LIVROS:
+                    sql = @"select 
+                                 l.nome 'livro', l.autor, l.editora,
+                                 c.nome 'cliente', c.cpf, 
+                                 el.dataEmprestimo, el.dataDevolucao, el.dataDevolucaoEfetiva, 
+                                 sl.status 'status do livro', 
+                                 u.login 'bibliotecario',
+                                 el.id, convert(varchar(36),l.id) 'livroId'
+                             from 
+                                 livro l inner join
+                                 emprestimoLivro el on el.livroId = l.id inner join
+                                 cliente c on el.clienteId = c.id inner join
+                                 statusLivro sl on l.statusLivroId = sl.id inner join
+                                 usuario u on el.usuarioId = u.id
+                             where
+                                 l.nome = @nomeLivro and  c.nome = @nomeCliente and dateadd(dd, 0, datediff(dd, 0, el.dataEmprestimo)) = @dataEmprestimo
+                              order by
+                                   el.dataEmprestimo desc
+                             ";
+                    break;
+
                     #endregion
 
-            }
 
+            }
+            
             return sql;
         }
     }

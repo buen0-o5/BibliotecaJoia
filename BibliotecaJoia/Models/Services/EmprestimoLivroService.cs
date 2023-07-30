@@ -22,6 +22,7 @@ namespace BibliotecaJoia.Models.Services
             try
             {
                 var entidade = emprestimoLivro.ConverterParaEntidade();
+                entidade.RealizarEmprestimo();
                 _emprestimoLivroRepository.EfetuarEmprestimo(entidade);
             }
             catch (Exception ex)
@@ -30,12 +31,12 @@ namespace BibliotecaJoia.Models.Services
             }
         }
 
-        public void EfetuarDevolucao(EmprestimoLivroDto emprestimoLivro)
+        public void EfetuarDevolucao(int emprestimoId, string livroId)
         {
             try
             {
-                var entidade = emprestimoLivro.ConverterParaEntidade();
-                _emprestimoLivroRepository.EfetuarDevolucao(entidade);
+                
+                _emprestimoLivroRepository.EfetuarDevolucao(emprestimoId, livroId);
             }
             catch (Exception ex)
             {
@@ -43,6 +44,14 @@ namespace BibliotecaJoia.Models.Services
             }
         }
 
-     
+        public List<ConsultaEmprestimoDto> consultaEmprestimos()
+        {
+           return _emprestimoLivroRepository.consultaEmprestimos();
+        }
+
+        public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
+        {
+           return _emprestimoLivroRepository.consultaEmprestimo(nomeLivro, nomeCliente, dataEmprestimo);
+        }
     }
 }

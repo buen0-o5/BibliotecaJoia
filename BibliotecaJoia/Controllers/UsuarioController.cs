@@ -57,7 +57,7 @@ namespace BibliotecaJoia.Controllers
                     TempData["loginError"] = false;// Indica que não houve erro de login.
 
                     // Redireciona para a página de empréstimos após o login bem-sucedido.
-                    return Redirect("/Emprestimo/Index");
+                    return Redirect("/Emprestimo/Consulta");
                 }
                 else
                 {

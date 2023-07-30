@@ -652,7 +652,7 @@ namespace BibliotecaJoia.Models.Contexts
                 command.ExecuteNonQuery();
 
                 var query2 = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_LIVRO);
-                var command2 = new SqlCommand(query, _connection, transaction);
+                var command2 = new SqlCommand(query2, _connection, transaction);
 
                 command2.Parameters.Add("@id", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
                 command2.Parameters.Add("@statusLivroId", SqlDbType.Int).Value = StatusLivro.EMPRESTADO.GetHashCode(); //retornando o codigo referente a essa opçao
@@ -674,8 +674,9 @@ namespace BibliotecaJoia.Models.Contexts
             }
         }
 
-        public void EfetuarDevolucao(EmprestimoLivro emprestimoLivro)
+        public void EfetuarDevolucao(int emprestimoId, string livroId)
         {
+           
             SqlTransaction transaction = null;
             try
             {
@@ -686,17 +687,15 @@ namespace BibliotecaJoia.Models.Contexts
                 var command = new SqlCommand(query, _connection, transaction);
 
 
-                command.Parameters.Add("@clienteId", SqlDbType.VarChar).Value = emprestimoLivro.ClienteId;
-                command.Parameters.Add("@usuarioId", SqlDbType.Int).Value = emprestimoLivro.UsuarioId;
-                command.Parameters.Add("@livroId", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
-                command.Parameters.Add("@dataDevolucaoEfetiva", SqlDbType.DateTime).Value = emprestimoLivro.DataDevolucaoEfetiva;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = emprestimoId;
+                command.Parameters.Add("@dataDevolucaoEfetiva", SqlDbType.DateTime).Value = DateTime.Now;
 
                 command.ExecuteNonQuery();
 
                 var query2 = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_LIVRO);
-                var command2 = new SqlCommand(query, _connection, transaction);
+                var command2 = new SqlCommand(query2, _connection, transaction);
 
-                command2.Parameters.Add("@id", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
+                command2.Parameters.Add("@id", SqlDbType.VarChar).Value = livroId;
                 command2.Parameters.Add("@statusLivroId", SqlDbType.Int).Value = StatusLivro.DISPONIVEL.GetHashCode();
 
                 command2.ExecuteNonQuery();
@@ -715,6 +714,111 @@ namespace BibliotecaJoia.Models.Contexts
                     _connection.Close();
             }
         }
+
+
         #endregion
+
+        public List<ConsultaEmprestimoDto> consultaEmprestimos()
+        {
+            var emprestimos = new List<ConsultaEmprestimoDto>();
+            try
+            {
+                var query = SqlManager.GetSql(TSql.CONSULTAR_EMPRESTIMOS_LIVROS);
+
+                var command = new SqlCommand(query, _connection);
+
+                var dataset = new DataSet();
+
+                var adapter = new SqlDataAdapter(command);
+
+
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var emprestimo = new ConsultaEmprestimoDto
+                    {
+                        Livro = colunas[0].ToString(),
+                        Autor = colunas[1].ToString(),
+                        Editora = colunas[2].ToString(),
+                        Cliente = colunas[3].ToString(),
+                        CPF = colunas[4].ToString(),
+                        DataEmprestimo = DateTime.Parse(colunas[5].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucao = DateTime.Parse(colunas[6].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucaoEfetiva = colunas[7].ToString(),
+                        StatusLivro = colunas[8].ToString(),
+                        LoginBibliotecario = colunas[9].ToString(),
+                        Id = Int32.Parse(colunas[10].ToString()),
+                        LivroId = colunas[11].ToString()
+                    };
+                    emprestimos.Add(emprestimo);
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return emprestimos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
+        {
+            var emprestimo = new ConsultaEmprestimoDto();
+            try
+            {
+                var query = SqlManager.GetSql(TSql.PESQUISAR_EMPRESTIMOS_LIVROS);
+
+                var command = new SqlCommand(query, _connection);
+                command.Parameters.Add("@nomeLivro", SqlDbType.VarChar).Value = nomeLivro;
+                command.Parameters.Add("@nomeCliente", SqlDbType.VarChar).Value = nomeCliente;
+                command.Parameters.Add("@dataEmprestimo", SqlDbType.DateTime).Value = dataEmprestimo;
+
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    emprestimo = new ConsultaEmprestimoDto
+                    {
+                        Livro = colunas[0].ToString(),
+                        Autor = colunas[1].ToString(),
+                        Editora = colunas[2].ToString(),
+                        Cliente = colunas[3].ToString(),
+                        CPF = colunas[4].ToString(),
+                        DataEmprestimo = DateTime.Parse(colunas[5].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucao = DateTime.Parse(colunas[6].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucaoEfetiva = colunas[7].ToString(),
+                        StatusLivro = colunas[8].ToString(),
+                        LoginBibliotecario = colunas[9].ToString(),
+                        Id = Int32.Parse(colunas[10].ToString()),
+                        LivroId = colunas[11].ToString()
+
+                    };
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return emprestimo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

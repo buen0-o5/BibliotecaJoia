@@ -1,5 +1,6 @@
 ﻿using BibliotecaJoia.Models.Contracts.Contexto;
 using BibliotecaJoia.Models.Contracts.Repositories;
+using BibliotecaJoia.Models.DTO;
 using BibliotecaJoia.Models.Entidades;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,25 @@ namespace BibliotecaJoia.Models.Repositories
     public class EmprestimoLivroRepository : IEmprestimoLivroRepository
     {
         private readonly IContextData _contextData;
-        public EmprestimoLivroRepository(IContextData contextData)
+       public EmprestimoLivroRepository(IContextData contextData)
         {
             _contextData = contextData;
         }
 
-        public void EfetuarDevolucao(EmprestimoLivro emprestimoLivro)
+        public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
         {
-            _contextData.EfetuarDevolucao(emprestimoLivro);
+           ConsultaEmprestimoDto result = _contextData.consultaEmprestimo(nomeLivro, nomeCliente, dataEmprestimo);
+           return result;
+        }
+
+        public List<ConsultaEmprestimoDto> consultaEmprestimos()
+        {
+           return _contextData.consultaEmprestimos();
+        }
+
+        public void EfetuarDevolucao(int emprestimoId, string livroId)
+        {
+            _contextData.EfetuarDevolucao(emprestimoId, livroId);
         }
 
         public void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro)
