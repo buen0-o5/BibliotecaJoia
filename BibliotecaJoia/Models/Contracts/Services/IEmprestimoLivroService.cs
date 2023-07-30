@@ -12,6 +12,7 @@ namespace BibliotecaJoia.Models.Contracts.Services
         void EfetuarDevolucao(int emprestimoId, string livroId);
         List<ConsultaEmprestimoDto> consultaEmprestimos();
         ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
+        void AtualizarStatusEmprestimosLivros();
 
     }
 }

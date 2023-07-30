@@ -40,7 +40,7 @@
                             @page
                               var login = HttpContext.Session.GetString("_Login"); para trabalhar com essa session e necessario usa a @page(pagina com asp.core padrao)
                             */
-                            var login = Context.Session.GetString("_Login");
+                            string login = Context.Session.GetString("_Login");
 
                             if (login != null)
                             {

@@ -32,7 +32,10 @@ namespace BibliotecaJoia.Controllers
         {
             try
             {
+                //Tabela de atualizaçoes de status (modificar)
+                _emprestimoService.AtualizarStatusEmprestimosLivros();
                 var emprestimos = _emprestimoService.consultaEmprestimos();
+
                 return View(emprestimos);
             }
             catch(Exception ex)

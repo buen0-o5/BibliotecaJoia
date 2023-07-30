@@ -141,7 +141,9 @@ namespace BibliotecaJoia.Models.Repositories
                                    el.dataEmprestimo desc
                              ";
                     break;
-
+                case TSql.ATUALIZAR_STATUS_EMPRESTIMOS_LIVROS:
+                    sql = "SP_ATUALIZA_STATUS_EMPRESTIMO_LIVRO";
+                    break;
                     #endregion
 
 

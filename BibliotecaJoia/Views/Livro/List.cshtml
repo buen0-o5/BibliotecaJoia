@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<BibliotecaJoia.Models.DTO.LivroDto>
-
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Lista";
+    string login = Context.Session.GetString("_Login");
 }
 
 <h1>Cadastro de Livros</h1>
+  @if (login != null)
+  {
+    <p>
+        <a asp-action="Create">Adicionar Livro</a>
+    </p>
+  }
 
-<p>
-    <a asp-action="Create">Adicionar Livro</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -22,20 +26,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Atualizar", "Edit", new {  id=item.Id  }) |
-                @Html.ActionLink("Detalhe", "Details", new {  id=item.Id }) |
-                @Html.ActionLink("Excluir", "Delete", new {  id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @if (login != null)
+                    {
+                        <p>
+                            @Html.ActionLink("Atualizar", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Detalhe", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                        </p>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

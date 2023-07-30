@@ -767,6 +767,7 @@ namespace BibliotecaJoia.Models.Contexts
             {
                 throw ex;
             }
+         
         }
 
         public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
@@ -818,6 +819,35 @@ namespace BibliotecaJoia.Models.Contexts
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+
+        public void AtualizarStatusEmprestimosLivros()
+        {
+            try
+            {
+                var proc = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_EMPRESTIMOS_LIVROS);
+                
+                _connection.Open();
+                var command = new SqlCommand(proc, _connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+                command = null;
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
             }
         }
     }

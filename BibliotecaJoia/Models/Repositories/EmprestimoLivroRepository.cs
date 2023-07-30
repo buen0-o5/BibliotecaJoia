@@ -17,6 +17,11 @@ namespace BibliotecaJoia.Models.Repositories
             _contextData = contextData;
         }
 
+        public void AtualizarStatusEmprestimosLivros()
+        {
+            _contextData.AtualizarStatusEmprestimosLivros();
+        }
+
         public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
         {
            ConsultaEmprestimoDto result = _contextData.consultaEmprestimo(nomeLivro, nomeCliente, dataEmprestimo);

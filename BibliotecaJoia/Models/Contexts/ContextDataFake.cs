@@ -36,6 +36,11 @@ namespace BibliotecaJoia.Models.Contexts
             CadastrarLivro(objPersquisa);
         }
 
+        public void AtualizarStatusEmprestimosLivros()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AtualizarUsuario(Usuario usuario)
         {
             throw new NotImplementedException();
