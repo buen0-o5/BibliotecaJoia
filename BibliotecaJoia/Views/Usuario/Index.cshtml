@@ -1,35 +1,97 @@
-﻿@{ 
-    ViewData["Title"] = "Usuario";   
+﻿@model BibliotecaJoia.Models.DTO.UsuarioDto
+
+
+@{
+    ViewData["Title"] = "Usuario";
 }
+<style>
+    .container-login {
+        margin: 5em auto;
+    }
+</style>
 
-<h1>Login de Acesso</h1>
 
-<form method="post" asp-controller="usuario" asp-action="login">
-    <table border="0" cellpadding="2" cellspacing="2">
-        <tr>
-            <td>Login</td>
-            <td><input type="text" name="login" /></td>
-        </tr>
-        <tr>
-            <td>Senha</td>
-            <td><input type="password" name="senha" /></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Login" /></td>
-        </tr>
+<div class="container-login col-md-5">
 
-        @{
-            if (TempData["loginError"] != null &&(bool)TempData["loginError"] == true)
-            {
-                <tr>
-                    <td colspan="2">
-                        <p style="color:red; font-weight:bold">Falha ao efetuar login</p>
-                    </td>
-                </tr>
+    <h3 class="titulo">Login de usuário</h3>
+
+
+    <section class="loginForm">
+        <form method="post" asp-controller="usuario" asp-action="login">
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label asp-for="Login" class="control-label"></label>
+                    <input asp-for="Login" class="form-control" type="text" name="login" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label asp-for="Senha" class="control-label"></label>
+                    <input asp-for="Senha" class="form-control" type="password" name="senha" />
+                </div>
+            </div>
+
+            &nbsp;
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <input type="submit" class="btn btn-success" value="Entrar" />
+                </div>
+            </div>
+
+            @{
+                if (TempData["loginError"] != null && (bool)TempData["loginError"] == true)
+                {
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <p style="color:red; font-weight:bold">Falha ao efetuar login</p>
+                        </div>
+                    </div>
+                }
             }
 
-        }
+        </form>
+    </section>
 
-    </table>
-</form>
+
+</div>
+
+
+
+
+@*@{
+        ViewData["Title"] = "Usuario";
+    }
+
+    <h1>Login de Acesso</h1>
+
+    <form method="post" asp-controller="usuario" asp-action="login">
+        <table border="0" cellpadding="2" cellspacing="2">
+            <tr>
+                <td>Login</td>
+                <td><input type="text" name="login" /></td>
+            </tr>
+            <tr>
+                <td>Senha</td>
+                <td><input type="password" name="senha" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+
+            @{
+                if (TempData["loginError"] != null &&(bool)TempData["loginError"] == true)
+                {
+                    <tr>
+                        <td colspan="2">
+                            <p style="color:red; font-weight:bold">Falha ao efetuar login</p>
+                        </td>
+                    </tr>
+                }
+
+            }
+
+        </table>
+    </form>*@
