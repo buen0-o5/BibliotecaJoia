@@ -31,6 +31,11 @@ namespace BibliotecaJoia.Models.Repositories
                     sql = "select  convert(varchar(36), id) 'id', nome, autor, editora from livro where id = @id";
                     break;
 
+                case TSql.PESQUISAR_LIVRO_NOME:
+                    sql = "select convert(varchar(36), id) 'id', nome, autor, editora, statusLivroId from livro where nome like @nome + '%'";
+                  //  SELECT convert(varchar(36), id) 'id', nome, autor, editora, statusLivroId FROM livro WHERE nome like  'TESTaa%';
+                    break;
+
                 case TSql.ATUALIZAR_LIVRO:
                     sql = "update livro set nome = @nome, autor = @autor, editora = @editora from livro where id = @id ";
                     break;
@@ -49,6 +54,11 @@ namespace BibliotecaJoia.Models.Repositories
 
                 case TSql.LISTAR_CLIENTE:
                     sql = "select convert(varchar(36), id) 'id', nome, cpf, email,fone, statusClienteId  from cliente order by nome";
+                    break;
+                case TSql.PESQUISAR_CLIENTE_NOME:
+                    sql = "select convert(varchar(36), id) 'id', nome, cpf, email, fone, statusClienteId from cliente where nome like @nome + '%'";
+                    //SELECT convert(varchar(36), id) 'id', nome, cpf, email, fone, statusClienteId  FROM cliente WHERE nome like  'Maria Agui%';
+                   
                     break;
 
                 case TSql.PESQUISAR_CLIENTE:
@@ -94,7 +104,7 @@ namespace BibliotecaJoia.Models.Repositories
 
                 #region Emprestimo
                 case TSql.EFETUAR_EMPRESTIMO_LIVRO:
-                    sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId, dataEmprestimo, dataDevolucao) values(convert(binary(36),@clienteId), @usuarioId, convert(binary(36),@livroId), @dataEmprestimo, @dataDevolucao)";
+                    sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId,dataEmprestimo, dataDevolucao) values(convert(binary(36),@clienteId), @usuarioId, convert(binary(36),@livroId), @dataEmprestimo, @dataDevolucao)";
                                                                                                                     
                     break;
                 case TSql.EFETUAR_DEVOLUCAO_LIVRO:

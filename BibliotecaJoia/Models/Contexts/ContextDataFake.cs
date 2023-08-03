@@ -146,6 +146,11 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
+        public Cliente PesquisarClientePorNome(string nome)
+        {
+            throw new NotImplementedException();
+        }
+
         public Livro PesquisarLivroPorId(string id)
         {
             try
@@ -156,6 +161,11 @@ namespace BibliotecaJoia.Models.Contexts
             {
                 throw ex;
             }
+        }
+
+        public Livro PesquisarLivroPorNome(string nome)
+        {
+            throw new NotImplementedException();
         }
 
         public Usuario PesquisarUsuarioPorId(int id)

@@ -14,7 +14,6 @@ namespace BibliotecaJoia.Models.DTO
 
         public string LivroId { get; set; }
         public LivroDto Livro { get; set; }
-
         public int UsuarioId { get; set; }
         public UsuarioDto Usuario { get; set; }
 

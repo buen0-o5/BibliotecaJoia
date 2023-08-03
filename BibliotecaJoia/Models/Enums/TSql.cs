@@ -11,6 +11,7 @@ namespace BibliotecaJoia.Models.Enums
         CADASTRAR_LIVRO,
         LISTAR_LIVRO,
         PESQUISAR_LIVRO,
+        PESQUISAR_LIVRO_NOME,
         ATUALIZAR_LIVRO,
         EXCLUIR_LIVRO,
 
@@ -18,6 +19,7 @@ namespace BibliotecaJoia.Models.Enums
         CADASTRAR_CLIENTE,
         LISTAR_CLIENTE,
         PESQUISAR_CLIENTE,
+        PESQUISAR_CLIENTE_NOME,
         ATUALIZAR_CLIENTE,
         EXCLUIR_CLIENTE,
 

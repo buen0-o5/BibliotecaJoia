@@ -48,5 +48,8 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
         ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
         void AtualizarStatusEmprestimosLivros();
 
+        Cliente PesquisarClientePorNome(string nome);
+        Livro PesquisarLivroPorNome(string nome);
+
     }
 }

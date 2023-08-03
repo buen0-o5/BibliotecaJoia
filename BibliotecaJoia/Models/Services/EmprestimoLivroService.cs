@@ -58,5 +58,31 @@ namespace BibliotecaJoia.Models.Services
         {
             _emprestimoLivroRepository.AtualizarStatusEmprestimosLivros();
         }
+
+        public ClienteDto PesquisarClientePorNome(string nome)
+        {
+            try
+            {
+                var cliente = _emprestimoLivroRepository.PesquisarClientePorNome(nome);
+                return cliente.ConverterParaDto();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public LivroDto PesquisarLivroPorNome(string nome)
+        {
+            try
+            {
+                var livro = _emprestimoLivroRepository.PesquisarLivroPorNome(nome);
+                return livro.CoverterParaDto();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

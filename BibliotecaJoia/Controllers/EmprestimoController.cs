@@ -54,11 +54,14 @@ namespace BibliotecaJoia.Controllers
                 string login = HttpContext.Session.GetString("_Login");
                 EmprestimoLivroDto entidade = new EmprestimoLivroDto();
 
-                entidade.Cliente = PesquisarCliente(emprestimo.Cliente);
+               // entidade.Cliente = PesquisarCliente(emprestimo.Cliente);
+                entidade.Cliente = _emprestimoService.PesquisarClientePorNome(emprestimo.Cliente);
+
                 entidade.ClienteId = entidade.Cliente.Id;
 
+                entidade.Livro = _emprestimoService.PesquisarLivroPorNome(emprestimo.Livro);
 
-                entidade.Livro = PesquisarLivro(emprestimo.Livro);
+                //entidade.Livro = PesquisarLivro(emprestimo.Livro);
                 entidade.LivroId = entidade.Livro.Id;
 
                 entidade.UsuarioId = Int32.Parse(userId);
@@ -103,21 +106,21 @@ namespace BibliotecaJoia.Controllers
             }
         }
 
-        public ClienteDto PesquisarCliente(string nome)
-        {
-            var cliente = _clienteService.Listar()
-                .Where(p => p.Nome.Equals(nome)).FirstOrDefault();
-            return cliente;
-        }
+        //public ClienteDto PesquisarCliente(string nome)
+        //{
+        //    var cliente = _clienteService.Listar()
+        //        .Where(p => p.Nome.Equals(nome)).FirstOrDefault();
+        //    return cliente;
+        //}
 
-        public LivroDto PesquisarLivro(string nome)
-        {
-            var livro = _livroService.Listar()
-                .Where(p => p.Nome.Equals(nome)).FirstOrDefault();
-            return livro;
-        }
+        //public LivroDto PesquisarLivro(string nome)
+        //{
+        //    var livro = _livroService.Listar()
+        //        .Where(p => p.Nome.Equals(nome)).FirstOrDefault();
+        //    return livro;
+        //}
         public IActionResult PesquisarClientes(string term)
-        {
+       {
           var clientes =  _clienteService.Listar();
           var clientesAtivos = clientes.Where(p => p.StatusClienteId.Equals("1")).ToList();
           var listaNomeClientes = clientesAtivos.Select(p => p.Nome).ToList();

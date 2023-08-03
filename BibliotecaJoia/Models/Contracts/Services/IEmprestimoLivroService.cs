@@ -13,6 +13,7 @@ namespace BibliotecaJoia.Models.Contracts.Services
         List<ConsultaEmprestimoDto> consultaEmprestimos();
         ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
         void AtualizarStatusEmprestimosLivros();
-
+        ClienteDto PesquisarClientePorNome(string nome);
+        LivroDto PesquisarLivroPorNome(string nome);
     }
 }

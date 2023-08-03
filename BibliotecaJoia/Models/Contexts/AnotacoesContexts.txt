@@ -13,7 +13,45 @@ ContextDataFake: é responsável por implementar a interface IContextData,
 que representa o contexto de acesso aos dados no banco de dados interno
 
 
+       try
+            {
+                Cliente cliente = null;
 
+                var query = SqlManager.GetSql(TSql.PESQUISAR_CLIENTE);
+
+                var command = new SqlCommand(query, _connection);
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var codigo = colunas[0].ToString();
+                    var nome = colunas[1].ToString();
+                    var cpf = colunas[2].ToString();
+                    var email = colunas[3].ToString();
+                    var fone = colunas[4].ToString();
+                    var statusClienteId = colunas[5].ToString();
+
+                    cliente = new Cliente { Id = codigo, Nome = nome, CPF = cpf, Email = email, Fone = fone, StatusClienteId = Int32.Parse(statusClienteId) };
+                    cliente.StatusCliente = GerenciadorDeStatus.PesquisarStatusClientePeloId(cliente.StatusClienteId);
+                }
+                adapter = null;
+                dataset = null;
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
 
 

@@ -850,5 +850,81 @@ namespace BibliotecaJoia.Models.Contexts
                     _connection.Close();
             }
         }
+
+
+
+        public Cliente PesquisarClientePorNome(string nome)
+        {
+
+            try
+            {
+                Cliente cliente = null;
+                var query = SqlManager.GetSql(TSql.PESQUISAR_CLIENTE_NOME);
+                var commad = new SqlCommand(query, _connection);
+                commad.Parameters.Add("@nome", SqlDbType.VarChar).Value = nome;
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(commad);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var id = colunas[0].ToString();
+                    var nomeCliente = colunas[1].ToString();
+
+                    cliente = new Cliente { Id = id, Nome = nomeCliente };
+                }
+            
+                adapter = null;
+                dataset = null;
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Livro PesquisarLivroPorNome(string nome)
+        {
+
+            try
+            {
+                Livro livro = null;
+                var query = SqlManager.GetSql(TSql.PESQUISAR_LIVRO_NOME);
+                var commad = new SqlCommand(query, _connection);
+                commad.Parameters.Add("@nome", SqlDbType.VarChar).Value = nome;
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(commad);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var id = colunas[0].ToString();
+                    var nomeLivro = colunas[1].ToString();
+
+                    livro = new Livro { Id = id, Nome = nomeLivro };
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return livro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
