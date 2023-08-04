@@ -104,11 +104,11 @@ namespace BibliotecaJoia.Models.Repositories
 
                 #region Emprestimo
                 case TSql.EFETUAR_EMPRESTIMO_LIVRO:
-                    sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId,dataEmprestimo, dataDevolucao) values(convert(binary(36),@clienteId), @usuarioId, convert(binary(36),@livroId), @dataEmprestimo, @dataDevolucao)";
+                    sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId,statusEmprestimoAtual,dataEmprestimo, dataDevolucao) values(convert(binary(36),@clienteId), @usuarioId, convert(binary(36),@livroId),@statusEmprestimoAtual, @dataEmprestimo, @dataDevolucao)";
                                                                                                                     
                     break;
                 case TSql.EFETUAR_DEVOLUCAO_LIVRO:
-                    sql = "update emprestimoLivro set dataDevolucaoEfetiva = @dataDevolucaoEfetiva  where id = @id";
+                    sql = "update emprestimoLivro set dataDevolucaoEfetiva = @dataDevolucaoEfetiva, statusEmprestimoAtual = @statusEmprestimoAtual  where id = @id";
                     break;
                 case TSql.ATUALIZAR_STATUS_LIVRO:
                     sql = "update livro set statusLivroId = @statusLivroId where convert(varchar(36),id) = @id";
@@ -128,7 +128,7 @@ namespace BibliotecaJoia.Models.Repositories
                                  livro l inner join
                                  emprestimoLivro el on el.livroId = l.id inner join
                                  cliente c on el.clienteId = c.id inner join
-                                 statusLivro sl on l.statusLivroId = sl.id inner join
+                                 statusLivro sl on el.statusEmprestimoAtual = sl.id inner join
                                  usuario u on el.usuarioId = u.id";
                     break;
                 case TSql.PESQUISAR_EMPRESTIMOS_LIVROS:
@@ -143,7 +143,7 @@ namespace BibliotecaJoia.Models.Repositories
                                  livro l inner join
                                  emprestimoLivro el on el.livroId = l.id inner join
                                  cliente c on el.clienteId = c.id inner join
-                                 statusLivro sl on l.statusLivroId = sl.id inner join
+                                 statusLivro sl on el.statusEmprestimoAtual = sl.id inner join
                                  usuario u on el.usuarioId = u.id
                              where
                                  l.nome = @nomeLivro and  c.nome = @nomeCliente and dateadd(dd, 0, datediff(dd, 0, el.dataEmprestimo)) = @dataEmprestimo

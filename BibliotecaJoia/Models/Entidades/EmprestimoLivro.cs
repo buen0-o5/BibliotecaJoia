@@ -17,7 +17,10 @@ namespace BibliotecaJoia.Models.Entidades
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
 
-       
+        public string StatusEmprestimoAtual { get; set; }
+
+
+
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
         public DateTime DataDevolucaoEfetiva { get; set; }

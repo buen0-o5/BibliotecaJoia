@@ -22,13 +22,13 @@
                 @Html.DisplayNameFor(model => model.Cliente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataEmprestimo)
+                @Html.DisplayName("Data do Empréstimo")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataDevolucao)
+                @Html.DisplayName("Data de Devolução")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusLivro)
+                @Html.DisplayName("Status do Empréstimo")
             </th>
             <th></th>
         </tr>
@@ -52,13 +52,13 @@
                 @Html.DisplayFor(modelItem => item.DataDevolucao)
             </td>
             <td>
-                @if (item.StatusLivro == "Atraso_Devolucao")
+                @if (item.StatusEmprestimoAtual == "Atraso_Devolucao")
                 {
-                <strong style="color:red">@Html.DisplayFor(modelItem => item.StatusLivro)</strong>  
+                <strong style="color:red">@Html.DisplayFor(modelItem => item.StatusEmprestimoAtual)</strong>  
                 }
                 else
                 {
-                    @Html.DisplayFor(modelItem => item.StatusLivro)
+                    @Html.DisplayFor(modelItem => item.StatusEmprestimoAtual)
                 }
             </td>
             <td>

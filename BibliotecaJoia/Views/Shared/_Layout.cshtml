@@ -20,8 +20,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="divHeader navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1" style="height: 40px;">
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Livro" asp-action="List">Livros</a>
@@ -46,13 +46,15 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Emprestimo" asp-action="Consulta">Emprestimo</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <p class="nav-link text-dark">Usuario: @login </p>
+                                <li class="nav-item usuario">
+                                    <p class="nav-link text-dark ">Usuario: @login </p>
                                 </li>
+                               
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Sair</a>
                                 </li>
                             }
+                           
                             else
                             {
                                 <li class="nav-item">

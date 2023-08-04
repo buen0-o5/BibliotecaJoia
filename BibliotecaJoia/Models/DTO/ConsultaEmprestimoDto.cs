@@ -22,7 +22,7 @@ namespace BibliotecaJoia.Models.DTO
         public string DataDevolucaoEfetiva { get; set; }
 
         public string StatusLivro { get; set; }
-
+        public string StatusEmprestimoAtual { get; set; }
         public string LoginBibliotecario { get; set; }
 
     }

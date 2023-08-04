@@ -9,64 +9,66 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Livro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Livro)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Autor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Autor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Editora)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Editora)
-        </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Cliente)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Cliente)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CPF)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CPF)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataEmprestimo)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Livro)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Livro)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Autor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Editora)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Editora)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayName("Data do empréstimo")
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataEmprestimo)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataDevolucao)
+        <dt class="col-sm-2">
+            @Html.DisplayName("Data de devolução")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataDevolucao)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataDevolucaoEfetiva)
+        <dt class="col-sm-2">
+            @Html.DisplayName("Data devolução efetiva")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataDevolucaoEfetiva)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusLivro)
+        <dt class="col-sm-2">
+            @Html.DisplayName("Status do empréstimo")
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StatusLivro)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StatusEmprestimoAtual)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoginBibliotecario)
+        <dt class="col-sm-2">
+            @Html.DisplayName("Bibliotecario responsável")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LoginBibliotecario)
         </dd>
     </dl>

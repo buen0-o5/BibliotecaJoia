@@ -56,11 +56,9 @@ namespace BibliotecaJoia.Controllers
 
                // entidade.Cliente = PesquisarCliente(emprestimo.Cliente);
                 entidade.Cliente = _emprestimoService.PesquisarClientePorNome(emprestimo.Cliente);
-
                 entidade.ClienteId = entidade.Cliente.Id;
 
                 entidade.Livro = _emprestimoService.PesquisarLivroPorNome(emprestimo.Livro);
-
                 //entidade.Livro = PesquisarLivro(emprestimo.Livro);
                 entidade.LivroId = entidade.Livro.Id;
 

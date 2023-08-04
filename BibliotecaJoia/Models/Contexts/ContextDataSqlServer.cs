@@ -646,6 +646,9 @@ namespace BibliotecaJoia.Models.Contexts
                 command.Parameters.Add("@clienteId", SqlDbType.VarChar).Value = emprestimoLivro.ClienteId;
                 command.Parameters.Add("@usuarioId", SqlDbType.Int).Value = emprestimoLivro.UsuarioId;
                 command.Parameters.Add("@livroId", SqlDbType.VarChar).Value = emprestimoLivro.LivroId;
+                
+                command.Parameters.Add("@statusEmprestimoAtual", SqlDbType.VarChar).Value = StatusLivro.EMPRESTADO.GetHashCode();
+
                 command.Parameters.Add("@dataEmprestimo", SqlDbType.DateTime).Value = emprestimoLivro.DataEmprestimo;
                 command.Parameters.Add("@dataDevolucao", SqlDbType.DateTime).Value = emprestimoLivro.DataDevolucao;
 
@@ -688,6 +691,8 @@ namespace BibliotecaJoia.Models.Contexts
 
 
                 command.Parameters.Add("@id", SqlDbType.Int).Value = emprestimoId;
+                command.Parameters.Add("@statusEmprestimoAtual", SqlDbType.VarChar).Value = StatusLivro.DEVOLVIDO.GetHashCode();
+
                 command.Parameters.Add("@dataDevolucaoEfetiva", SqlDbType.DateTime).Value = DateTime.Now;
 
                 command.ExecuteNonQuery();
@@ -750,7 +755,7 @@ namespace BibliotecaJoia.Models.Contexts
                         DataEmprestimo = DateTime.Parse(colunas[5].ToString()).ToString("dd/MM/yyyy"),
                         DataDevolucao = DateTime.Parse(colunas[6].ToString()).ToString("dd/MM/yyyy"),
                         DataDevolucaoEfetiva = colunas[7].ToString(),
-                        StatusLivro = colunas[8].ToString(),
+                        StatusEmprestimoAtual = colunas[8].ToString(),
                         LoginBibliotecario = colunas[9].ToString(),
                         Id = Int32.Parse(colunas[10].ToString()),
                         LivroId = colunas[11].ToString()
@@ -803,7 +808,7 @@ namespace BibliotecaJoia.Models.Contexts
                         DataEmprestimo = DateTime.Parse(colunas[5].ToString()).ToString("dd/MM/yyyy"),
                         DataDevolucao = DateTime.Parse(colunas[6].ToString()).ToString("dd/MM/yyyy"),
                         DataDevolucaoEfetiva = colunas[7].ToString(),
-                        StatusLivro = colunas[8].ToString(),
+                        StatusEmprestimoAtual = colunas[8].ToString(),
                         LoginBibliotecario = colunas[9].ToString(),
                         Id = Int32.Parse(colunas[10].ToString()),
                         LivroId = colunas[11].ToString()
@@ -826,6 +831,8 @@ namespace BibliotecaJoia.Models.Contexts
                     _connection.Close();
             }
         }
+
+
 
         public void AtualizarStatusEmprestimosLivros()
         {

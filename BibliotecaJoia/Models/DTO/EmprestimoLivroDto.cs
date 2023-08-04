@@ -17,7 +17,7 @@ namespace BibliotecaJoia.Models.DTO
         public int UsuarioId { get; set; }
         public UsuarioDto Usuario { get; set; }
 
-
+        public string StatusEmprestimoAtual { get; set; }
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
         public DateTime DataDevolucaoEfetiva { get; set; }
@@ -32,6 +32,7 @@ namespace BibliotecaJoia.Models.DTO
                 Livro = this.Livro.CoverterParaEntidade(),
                 UsuarioId = this.UsuarioId,
                 Usuario = this.Usuario.ConverteParaEntidade(),
+                StatusEmprestimoAtual = this.StatusEmprestimoAtual,
                 DataEmprestimo = this.DataEmprestimo,
                 DataDevolucao = this.DataDevolucao,
                 DataDevolucaoEfetiva = this.DataDevolucaoEfetiva
