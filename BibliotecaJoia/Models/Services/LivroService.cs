@@ -44,7 +44,7 @@ namespace BibliotecaJoia.Models.Services
             }
         }
 
-        public void Excluir(string id)
+        public void Excluir(int id)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace BibliotecaJoia.Models.Services
            
         }
 
-        public LivroDto PesquisarPorId(string id)
+        public LivroDto PesquisarPorId(int id)
         {
             try
             {

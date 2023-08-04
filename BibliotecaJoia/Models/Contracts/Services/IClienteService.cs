@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Models.Contracts.Services
 {
-   public interface IClienteService : IService<ClienteDto, string>
+   public interface IClienteService : IService<ClienteDto, int>
     {
 
     }

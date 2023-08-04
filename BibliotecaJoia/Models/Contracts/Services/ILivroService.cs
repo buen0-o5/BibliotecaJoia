@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BibliotecaJoia.Models.Contracts.Services
 {
     //Essa interface  lida com a camada de lógica de negócios. 
-    public interface ILivroService : IService<LivroDto, string>
+    public interface ILivroService : IService<LivroDto, int>
     {
     }
 }

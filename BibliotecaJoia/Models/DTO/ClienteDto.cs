@@ -10,9 +10,10 @@ namespace BibliotecaJoia.Models.DTO
     //objeto de transferencia
     //Camada de transporte, ponte entre pagina e a aplicaçao entre a pagina de serviço
     //consulta
-    public class ClienteDto : EntidadeBase
+    public class ClienteDto 
         
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string Email { get; set; }

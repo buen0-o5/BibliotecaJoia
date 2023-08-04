@@ -56,11 +56,11 @@ namespace BibliotecaJoia.Controllers
 
                // entidade.Cliente = PesquisarCliente(emprestimo.Cliente);
                 entidade.Cliente = _emprestimoService.PesquisarClientePorNome(emprestimo.Cliente);
-                entidade.ClienteId = entidade.Cliente.Id;
+                entidade.ClienteId = entidade.Cliente.Id.ToString();
 
                 entidade.Livro = _emprestimoService.PesquisarLivroPorNome(emprestimo.Livro);
                 //entidade.Livro = PesquisarLivro(emprestimo.Livro);
-                entidade.LivroId = entidade.Livro.Id;
+                entidade.LivroId = entidade.Livro.Id.ToString();
 
                 entidade.UsuarioId = Int32.Parse(userId);
                 entidade.Usuario = new UsuarioDto { Id = Int32.Parse(userId), Login = login };

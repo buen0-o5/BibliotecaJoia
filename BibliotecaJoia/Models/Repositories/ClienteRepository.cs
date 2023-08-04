@@ -27,7 +27,7 @@ namespace BibliotecaJoia.Models.Repositories
             _contextData.CadastrarCliente(cliente);
         }
 
-        public void Excluir(string id)
+        public void Excluir(int id)
         {
             _contextData.ExcluirCliente(id);
         }
@@ -37,7 +37,7 @@ namespace BibliotecaJoia.Models.Repositories
             return _contextData.ListarCliente();
         }
 
-        public Cliente PesquisarPorId(string id)
+        public Cliente PesquisarPorId(int id)
         {
             return _contextData.PesquisarClientePorId(id);
         }

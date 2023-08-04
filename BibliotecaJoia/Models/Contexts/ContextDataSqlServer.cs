@@ -40,7 +40,7 @@ namespace BibliotecaJoia.Models.Contexts
 
                 var command = new SqlCommand(query, _connection);
                
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = cliente.Id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = cliente.Id;
                 command.Parameters.Add("@nome", SqlDbType.VarChar).Value = cliente.Nome;
                 command.Parameters.Add("@cpf", SqlDbType.VarChar).Value = cliente.CPF;
                 command.Parameters.Add("@email", SqlDbType.VarChar).Value = cliente.Email;
@@ -72,7 +72,7 @@ namespace BibliotecaJoia.Models.Contexts
                 var command = new SqlCommand(query, _connection);
 
                 //definindo parametros para indicar os valores a consulta
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = cliente.Id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = cliente.Id;
                 command.Parameters.Add("@nome", SqlDbType.VarChar).Value = cliente.Nome;
                 command.Parameters.Add("@email", SqlDbType.VarChar).Value = cliente.Email;
                 command.Parameters.Add("@fone", SqlDbType.VarChar).Value = cliente.Fone;
@@ -96,7 +96,7 @@ namespace BibliotecaJoia.Models.Contexts
                     _connection.Close();
             }
         }
-        public void ExcluirCliente(string id)
+        public void ExcluirCliente(int id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace BibliotecaJoia.Models.Contexts
 
                 var command = new SqlCommand(query, _connection);
 
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.ExecuteNonQuery();
 
 
@@ -151,7 +151,7 @@ namespace BibliotecaJoia.Models.Contexts
                     var colunas = item.ItemArray;
 
                     // Extrai os valores das colunas para criar um objeto LivroDto
-                    var id = colunas[0].ToString();
+                    var id = Int32.Parse(colunas[0].ToString());
                     var nome = colunas[1].ToString();
                     var cpf = colunas[2].ToString();
                     var email = colunas[3].ToString();
@@ -178,7 +178,7 @@ namespace BibliotecaJoia.Models.Contexts
                 throw ex;
             }
         }
-        public Cliente PesquisarClientePorId(string id)
+        public Cliente PesquisarClientePorId(int id)
         {
             try
             {
@@ -187,7 +187,7 @@ namespace BibliotecaJoia.Models.Contexts
                 var query = SqlManager.GetSql(TSql.PESQUISAR_CLIENTE);
 
                 var command = new SqlCommand(query, _connection);
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
 
                 var dataset = new DataSet();
@@ -200,7 +200,7 @@ namespace BibliotecaJoia.Models.Contexts
                 {
                     var colunas = item.ItemArray;
 
-                    var codigo = colunas[0].ToString();
+                    var codigo = Int32.Parse(colunas[0].ToString());
                     var nome = colunas[1].ToString();
                     var cpf = colunas[2].ToString();
                     var email = colunas[3].ToString();
@@ -232,7 +232,7 @@ namespace BibliotecaJoia.Models.Contexts
 
                 var command = new SqlCommand(query, _connection);
 
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = livro.Id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = livro.Id;
                 command.Parameters.Add("@nome", SqlDbType.VarChar).Value = livro.Nome;
                 command.Parameters.Add("@autor", SqlDbType.VarChar).Value = livro.Autor;
                 command.Parameters.Add("@editora", SqlDbType.VarChar).Value = livro.Editora;
@@ -267,7 +267,7 @@ namespace BibliotecaJoia.Models.Contexts
                 var command = new SqlCommand(query, _connection);
 
                 //definindo parametros para indicar os valores a consulta
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = livro.Id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = livro.Id;
                 command.Parameters.Add("@nome", SqlDbType.VarChar).Value = livro.Nome;
                 command.Parameters.Add("@autor", SqlDbType.VarChar).Value = livro.Autor;
                 command.Parameters.Add("@editora", SqlDbType.VarChar).Value = livro.Editora;
@@ -288,7 +288,7 @@ namespace BibliotecaJoia.Models.Contexts
                     _connection.Close();
             }
         }
-        public void ExcluirLivro(string id)
+        public void ExcluirLivro(int id)
         {
             try
             {
@@ -297,7 +297,7 @@ namespace BibliotecaJoia.Models.Contexts
 
                 var command = new SqlCommand(query, _connection);
 
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.ExecuteNonQuery();
 
 
@@ -343,7 +343,7 @@ namespace BibliotecaJoia.Models.Contexts
                     var colunas = item.ItemArray;
 
                     // Extrai os valores das colunas para criar um objeto LivroDto
-                    var id = colunas[0].ToString();
+                    var id = Int32.Parse(colunas[0].ToString());
                     var nome = colunas[1].ToString();
                     var autor = colunas[2].ToString();
                     var editora = colunas[3].ToString();
@@ -368,7 +368,7 @@ namespace BibliotecaJoia.Models.Contexts
                 throw ex;
             }
         }
-        public Livro PesquisarLivroPorId(string id)
+        public Livro PesquisarLivroPorId(int id)
         {
             try
             {
@@ -377,7 +377,7 @@ namespace BibliotecaJoia.Models.Contexts
                 var query = SqlManager.GetSql(TSql.PESQUISAR_LIVRO);
 
                 var command = new SqlCommand(query, _connection);
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
 
                 var dataset = new DataSet();
@@ -390,7 +390,7 @@ namespace BibliotecaJoia.Models.Contexts
                 {
                     var colunas = item.ItemArray;
 
-                    var codigo = colunas[0].ToString();
+                    var codigo = Int32.Parse(colunas[0].ToString());
                     var nome = colunas[1].ToString();
                     var autor = colunas[2].ToString();
                     var editora = colunas[3].ToString();
@@ -880,7 +880,7 @@ namespace BibliotecaJoia.Models.Contexts
                 {
                     var colunas = item.ItemArray;
 
-                    var id = colunas[0].ToString();
+                    var id = Int32.Parse(colunas[0].ToString());
                     var nomeCliente = colunas[1].ToString();
 
                     cliente = new Cliente { Id = id, Nome = nomeCliente };
@@ -917,7 +917,7 @@ namespace BibliotecaJoia.Models.Contexts
                 {
                     var colunas = item.ItemArray;
 
-                    var id = colunas[0].ToString();
+                    var id = Int32.Parse(colunas[0].ToString());
                     var nomeLivro = colunas[1].ToString();
 
                     livro = new Livro { Id = id, Nome = nomeLivro };

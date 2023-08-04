@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Models.Contracts.Repositories
 {
-   public interface IClienteRepository : IRepository<Cliente, string>
+   public interface IClienteRepository : IRepository<Cliente, int>
     {
     }
 }

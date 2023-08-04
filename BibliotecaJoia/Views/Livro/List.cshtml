@@ -17,10 +17,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editora)
             </th>
             <th></th>
         </tr>
@@ -28,24 +31,28 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @if (login != null)
-                    {
-                        <p>
-                            @Html.ActionLink("Atualizar", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Detalhe", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
-                        </p>
-                    }
-                </td>
-            </tr>
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editora)
+            </td>
+            <td>
+                @if (login != null)
+                {
+                    <p>
+                        @Html.ActionLink("Atualizar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalhe", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                    </p>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

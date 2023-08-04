@@ -10,10 +10,11 @@ namespace BibliotecaJoia.Models.DTO
     // Classe que representa um objeto LivroDto, contendo os atributos relacionados a um livro.
     // Essa classe é utilizada como uma representação de dados transferidos (DTO - Data Transfer Object)
     // para enviar informações de livros entre diferentes partes da aplicação, como a camada de apresentação e a camada de serviço.
-    public class LivroDto : EntidadeBase
+    public class LivroDto 
     {
         //Atributos do livro
-        
+
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Autor { get; set; }
         public string Editora { get; set; }

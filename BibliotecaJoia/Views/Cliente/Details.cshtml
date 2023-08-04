@@ -6,54 +6,57 @@
 
 <h1>Detalhes</h1>
 
-<div>
-    <h4>ClienteDto</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CPF)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CPF)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusClienteId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StatusClienteId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-    </dl>
+<div class="table-responsive">
+    <table class="table table-bordered col-md-3">
+        <tbody>
+            <tr>
+                <th scope="row">Id</th>
+                <td> @Html.DisplayFor(model => model.Id)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Nome</th>
+                <td>@Html.DisplayFor(model => model.Nome)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">CPF</th>
+                <td>@Html.DisplayFor(model => model.CPF)</td>
+            </tr>
+
+            <tr>
+
+                <th scope="row">E-mail</th>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+
+            <tr>
+
+                <th scope="row">Telefone celular</th>
+                <td>@Html.DisplayFor(model => model.Fone)</td>
+            </tr>
+             <tr>
+
+                <th scope="row">Status cliente</th>
+                <td>@Html.DisplayFor(model => model.Status)</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div>
     @Html.ActionLink("Atualizar", "Edit", new { id = Model.Id }) |
     <a asp-action="List">Voltar</a>

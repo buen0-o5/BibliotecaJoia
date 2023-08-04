@@ -99,14 +99,14 @@ namespace BibliotecaJoia.Controllers
         // Verifica se o campo "Id" não é nulo ou vazio. Caso seja, retorna uma resposta "NotFound" indicando que o livro não foi encontrado.
         // Utiliza o serviço "_livroService" para pesquisar se o "Id" está cadastrado no banco de dados.
         // Caso o "Id" seja válido e corresponda a um livro existente, a view "Edit" é retornada, contendo os dados do livro para edição.
-        public IActionResult Edit(string? Id)
+        public IActionResult Edit(int? Id)
         {
             // Verifica se o campo "Id" não é nulo ou vazio.
-            if (string.IsNullOrEmpty(Id))
+            if (Id == null)
                 return NotFound();
 
             // Chama o serviço "_livroService" para pesquisar se o "Id" está cadastrado no banco de dados.
-            var livro = _livroService.PesquisarPorId(Id);
+            var livro = _livroService.PesquisarPorId(Id.Value);
             
             // Verifica se o "Id" corresponde a um livro válido no banco de dados.
             if (livro == null)
@@ -128,7 +128,7 @@ namespace BibliotecaJoia.Controllers
         public IActionResult Edit([Bind("Id, Nome,Autor,Editora")] LivroDto livro)
         {
             // Verifica se o campo "Id" do livro editado não é nulo ou vazio.
-            if (string.IsNullOrEmpty(livro.Id))
+            if (livro.Id ==null)
                 return NotFound();
             try
             {
@@ -151,12 +151,12 @@ namespace BibliotecaJoia.Controllers
         // Utiliza o serviço "_livroService" para pesquisar se o "id" está cadastrado no banco de dados.
         // Caso o "id" seja válido e corresponda a um livro existente, a view "Details" é retornada,
         // contendo os detalhes do livro para visualização.
-        public IActionResult Details(string? id)
+        public IActionResult Details(int? id)
         {
         
-            if (string.IsNullOrEmpty(id))
+            if (id ==null)
                 return NotFound();
-            var livro = _livroService.PesquisarPorId(id);
+            var livro = _livroService.PesquisarPorId(id.Value);
        
             if (livro == null)
                 return NotFound();
@@ -171,13 +171,13 @@ namespace BibliotecaJoia.Controllers
         // Utiliza o serviço "_livroService" para pesquisar se o "id" está cadastrado no banco de dados.
         // Caso o "id" seja válido e corresponda a um livro existente, a view "Delete" é retornada,
         // exibindo os dados do livro a ser excluído, permitindo que o usuário confirme a exclusão.
-        public IActionResult Delete(string? id)
+        public IActionResult Delete(int ? id)
         {
          
-            if (string.IsNullOrEmpty(id))
+            if (id ==null)
                 return NotFound();
           
-            var livro = _livroService.PesquisarPorId(id);
+            var livro = _livroService.PesquisarPorId(id.Value);
             if (livro == null)
                 return NotFound();
            

@@ -93,22 +93,23 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
-        public void ExcluirCliente(string id)
+        public void ExcluirCliente(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void ExcluirLivro(string id)
+        public void ExcluirLivro(int id)
         {
-            try
-            {
-                var objPesquisa = PesquisarLivroPorId(id);
-                livros.Remove(objPesquisa);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new NotImplementedException();
+            //try
+            //{
+            //    var objPesquisa = PesquisarLivroPorId(id);
+            //    livros.Remove(objPesquisa);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         public void ExcluirUsuario(int id)
@@ -141,7 +142,7 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
-        public Cliente PesquisarClientePorId(string id)
+        public Cliente PesquisarClientePorId(int id)
         {
             throw new NotImplementedException();
         }
@@ -151,16 +152,17 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
-        public Livro PesquisarLivroPorId(string id)
+        public Livro PesquisarLivroPorId(int id)
         {
-            try
-            {
-                return livros.FirstOrDefault(p => p.Id == id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new NotImplementedException();
+            //try
+            //{
+            //    return livros.FirstOrDefault(p => p.Id == id);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         public Livro PesquisarLivroPorNome(string nome)

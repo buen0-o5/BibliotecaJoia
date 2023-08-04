@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Models.Contracts.Repositories
 {
-    public interface ILivroRepository : IRepository<Livro, string>
+    public interface ILivroRepository : IRepository<Livro, int>
     {
         
         //Essa interface  lida com a camada de acesso aos dados

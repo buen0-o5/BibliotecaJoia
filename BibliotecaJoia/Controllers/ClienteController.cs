@@ -57,13 +57,13 @@ namespace BibliotecaJoia.Controllers
 
         }
 
-        public IActionResult Edit(string? Id)
+        public IActionResult Edit(int? Id)
         {
        
-            if (string.IsNullOrEmpty(Id))
+            if (Id == null)
                 return NotFound();
 
-            var cliente = _clienteService.PesquisarPorId(Id);
+            var cliente = _clienteService.PesquisarPorId(Id.Value);
             if (cliente == null)
                 return NotFound();
             return View(cliente);
@@ -75,7 +75,7 @@ namespace BibliotecaJoia.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit([Bind("Id, Nome, CPF, Email, Fone, StatusClienteId")] ClienteDto cliente)
         {
-            if (string.IsNullOrEmpty(cliente.Id))
+            if (cliente.Id == null)
                 return NotFound();
             try
             {
@@ -90,12 +90,12 @@ namespace BibliotecaJoia.Controllers
             return View();
         }
 
-        public IActionResult Details(string? id)
+        public IActionResult Details(int? id)
         {
 
-            if (string.IsNullOrEmpty(id))
+            if (id == null)
                 return NotFound();
-            var cliente = _clienteService.PesquisarPorId(id);
+            var cliente = _clienteService.PesquisarPorId(id.Value);
 
             if (cliente == null)
                 return NotFound();
@@ -104,13 +104,13 @@ namespace BibliotecaJoia.Controllers
         }
 
 
-        public IActionResult Delete(string? id)
+        public IActionResult Delete(int? id)
         {
 
-            if (string.IsNullOrEmpty(id))
+            if (id == null)
                 return NotFound();
 
-            var cliente = _clienteService.PesquisarPorId(id);
+            var cliente = _clienteService.PesquisarPorId(id.Value);
             if (cliente == null)
                 return NotFound();
 

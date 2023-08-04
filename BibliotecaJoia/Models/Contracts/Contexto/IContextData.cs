@@ -16,19 +16,19 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
         void CadastrarLivro(Livro livro);
         List<Livro> ListarLivro();
 
-        Livro PesquisarLivroPorId(string id);
+        Livro PesquisarLivroPorId(int id);
 
         void AtualizarLivro(Livro livro);
-        void ExcluirLivro(string id);
+        void ExcluirLivro(int id);
 
         //Cliente
         void CadastrarCliente(Cliente cliente);
         List<Cliente> ListarCliente();
 
-        Cliente PesquisarClientePorId(string id);
+        Cliente PesquisarClientePorId(int id);
 
         void AtualizarCliente(Cliente cliente);
-        void ExcluirCliente(string id);
+        void ExcluirCliente(int id);
 
         //Usuario
 

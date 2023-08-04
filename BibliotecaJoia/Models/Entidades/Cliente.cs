@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Models.Entidades
 {
-    public class Cliente : EntidadeBase
+    public class Cliente 
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string Email { get; set; }

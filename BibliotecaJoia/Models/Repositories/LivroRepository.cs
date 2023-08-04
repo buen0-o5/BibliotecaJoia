@@ -33,7 +33,7 @@ namespace BibliotecaJoia.Models.Repositories
             _contextData.CadastrarLivro(livro);
         }
 
-        public void Excluir(string id)
+        public void Excluir(int id)
         {
             _contextData.ExcluirLivro(id);
 
@@ -44,7 +44,7 @@ namespace BibliotecaJoia.Models.Repositories
             return _contextData.ListarLivro(); 
         }
 
-        public Livro PesquisarPorId(string id)
+        public Livro PesquisarPorId(int id)
         {
             return _contextData.PesquisarLivroPorId(id);
         }
