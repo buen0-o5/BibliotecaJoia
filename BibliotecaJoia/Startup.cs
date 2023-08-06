@@ -4,6 +4,7 @@ using BibliotecaJoia.Models.Contracts.Repositories;
 using BibliotecaJoia.Models.Contracts.Services;
 using BibliotecaJoia.Models.Repositories;
 using BibliotecaJoia.Models.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,10 +30,10 @@ namespace BibliotecaJoia
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) //modificado injeçao de dependencia
         {
-           
+
 
             ConfigureApp(services);
-           
+
             // Injeção de dependência
             // Registra as implementações das interfaces ILivroRepository e ILivroService,
             // para que sejam injetadas automaticamente quando necessário.
@@ -49,11 +50,22 @@ namespace BibliotecaJoia
         {
             services.AddDistributedMemoryCache();
 
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromSeconds(120);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            // aqui vc adiciona a autenticação por cookie
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(
+                options =>
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(120); // definindo tempo de expiração pra 2 horas
+                });
+
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(120);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -84,7 +96,7 @@ namespace BibliotecaJoia
             var datasource = Configuration["DataSource"];
 
             // Utilizando uma estrutura de switch-case para determinar o tipo de DataSource com base na configuração obtida.
-            switch (datasource) 
+            switch (datasource)
             {
                 // Caso a configuração seja "Local", utiliza o ContextDataFake e o ConnectionManagerFake,
                 // que são implementações falsas dos contextos e conexões para fins de desenvolvimento local e testes.
@@ -122,7 +134,9 @@ namespace BibliotecaJoia
             app.UseRouting();
 
             app.UseSession();
-           
+
+            // habilitar autenticação no projeto 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -2,9 +2,6 @@
 using BibliotecaJoia.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BibliotecaJoia.Controllers
 {
@@ -17,6 +14,8 @@ namespace BibliotecaJoia.Controllers
     // _livroService: Dependência injetada na classe LivroController por meio do construtor.
     // Representa uma instância de uma classe que implementa a interface ILivroService,
     // fornecendo a lógica de negócio necessária para manipular os dados dos livros.
+
+    //[Authorize] // isso serve pra usar a autenticação do cookie, o usuário só vai entrar nessa controller se estiver autenticado
     public class LivroController : Controller
     {
 
@@ -59,7 +58,7 @@ namespace BibliotecaJoia.Controllers
                 // Em caso de erro, a exceção é propagada para que o tratamento adequado seja realizado.
                 throw ex;
             }
-           
+
         }
 
         // Action responsável por retornar a view "Create".
@@ -81,7 +80,7 @@ namespace BibliotecaJoia.Controllers
                 // O parâmetro "livro" contém os dados enviados pelo formulário, como o nome, autor e editora do livro.
 
                 // Chama o serviço _livroService para cadastrar (criar) o novo livro com base nos dados fornecidos.
-         
+
                 _livroService.Cadastrar(livro);
                 return RedirectToAction("List");
             }
@@ -107,7 +106,7 @@ namespace BibliotecaJoia.Controllers
 
             // Chama o serviço "_livroService" para pesquisar se o "Id" está cadastrado no banco de dados.
             var livro = _livroService.PesquisarPorId(Id.Value);
-            
+
             // Verifica se o "Id" corresponde a um livro válido no banco de dados.
             if (livro == null)
                 return NotFound();
@@ -128,7 +127,7 @@ namespace BibliotecaJoia.Controllers
         public IActionResult Edit([Bind("Id, Nome,Autor,Editora")] LivroDto livro)
         {
             // Verifica se o campo "Id" do livro editado não é nulo ou vazio.
-            if (livro.Id ==null)
+            if (livro.Id == null)
                 return NotFound();
             try
             {
@@ -137,7 +136,8 @@ namespace BibliotecaJoia.Controllers
                 // Se a atualização for bem-sucedida, redireciona o usuário para a action "List"
                 // para visualizar a lista atualizada de livros.
                 return RedirectToAction("List");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -153,14 +153,14 @@ namespace BibliotecaJoia.Controllers
         // contendo os detalhes do livro para visualização.
         public IActionResult Details(int? id)
         {
-        
-            if (id ==null)
+
+            if (id == null)
                 return NotFound();
             var livro = _livroService.PesquisarPorId(id.Value);
-       
+
             if (livro == null)
                 return NotFound();
-       
+
             return View(livro);
         }
 
@@ -171,16 +171,16 @@ namespace BibliotecaJoia.Controllers
         // Utiliza o serviço "_livroService" para pesquisar se o "id" está cadastrado no banco de dados.
         // Caso o "id" seja válido e corresponda a um livro existente, a view "Delete" é retornada,
         // exibindo os dados do livro a ser excluído, permitindo que o usuário confirme a exclusão.
-        public IActionResult Delete(int ? id)
+        public IActionResult Delete(int? id)
         {
-         
-            if (id ==null)
+
+            if (id == null)
                 return NotFound();
-          
+
             var livro = _livroService.PesquisarPorId(id.Value);
             if (livro == null)
                 return NotFound();
-           
+
             return View(livro);
         }
 
@@ -192,10 +192,10 @@ namespace BibliotecaJoia.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete([Bind("Id, Nome, Autor, Editora")] LivroDto livro)
-            {
-                _livroService.Excluir(livro.Id);
-                return RedirectToAction("List");
-            }
-    
+        {
+            _livroService.Excluir(livro.Id);
+            return RedirectToAction("List");
+        }
+
     }
 }
