@@ -1,5 +1,5 @@
 ﻿@{ 
-    ViewData["Title"] = "Emprestimo";
+    ViewData["Title"] = "Emprestimo livro";
 }
 
 <h1>Emprestimo de Livros</h1>
@@ -10,12 +10,12 @@
             <form asp-action="EfetuarEmprestimo">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label  class="control-label">Cliente:</label>
+                    <label  class="control-label">Cliente</label>
                     <input class="form-control" name="Cliente" id="cliente" />
                 </div>
 
                 <div class="form-group">
-                    <label  class="control-label">Livro:</label>
+                    <label  class="control-label">Livro</label>
                     <input  class="form-control" name="Livro" id="livro" />
                 </div>
                 <div class="form-group">

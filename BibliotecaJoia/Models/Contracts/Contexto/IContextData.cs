@@ -12,7 +12,8 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
     //contexto de dados independente
     public interface IContextData
     {
-        //Livro
+       
+        #region Livro
         void CadastrarLivro(Livro livro);
         List<Livro> ListarLivro();
 
@@ -20,46 +21,57 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
 
         void AtualizarLivro(Livro livro);
         void ExcluirLivro(int id);
+        #endregion
 
-        //Cliente
+        #region Cliente
         void CadastrarCliente(Cliente cliente);
         List<Cliente> ListarCliente();
-
         Cliente PesquisarClientePorId(int id);
-
         void AtualizarCliente(Cliente cliente);
         void ExcluirCliente(int id);
+        #endregion
 
-        //Usuario
-
+        #region Usuario
         void CadastrarUsuario(Usuario usuario);
         List<Usuario> ListarUsuario();
-
         Usuario PesquisarUsuarioPorId(int id);
-
         void AtualizarUsuario(Usuario usuario);
         void ExcluirUsuario(int id);
         public UsuarioDto EfetuarLogin(UsuarioDto usuario);
+        #endregion
 
+        #region Emprestimo Livro
         void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro);
         void EfetuarDevolucao(int emprestimoId, string livroId);
 
         List<ConsultaEmprestimoDto> consultaEmprestimos();
-        ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
+        ConsultaEmprestimoDto consultaEmprestimo(int id,string nomeLivro, string nomeCliente, DateTime dataEmprestimo);
         void AtualizarStatusEmprestimosLivros();
 
+        #endregion
+
+        #region Pesquisa Nome 
         Cliente PesquisarClientePorNome(string nome);
         Livro PesquisarLivroPorNome(string nome);
+        Dvd PesquisarDvdPorNome(string nome);
+        #endregion
 
-        //Dvd
+        #region Dvd
         void CadastrarDvd(Dvd dvd);
         List<Dvd> ListarDvd();
-
         Dvd PesquisarDvdPorId(int id);
-
         void AtualizarDvd(Dvd livro);
         void ExcluirDvd(int id);
+        #endregion
 
+        #region Emprestimo Livro
+        void EfetuarEmprestimo(EmprestimoDvd emprestimoDvd);
+        void EfetuarDevolucaoDvd(int emprestimoId, string dvdId);
+
+        List<ConsultaEmprestimoDvdDto> consultaEmprestimosDvd();
+        ConsultaEmprestimoDvdDto consultaEmprestimoDvd(int id,string nomeDvd, string nomeCliente, DateTime dataEmprestimo);
+        void AtualizarStatusEmprestimosDvds();
+        #endregion
 
     }
 }

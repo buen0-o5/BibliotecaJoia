@@ -49,9 +49,9 @@ namespace BibliotecaJoia.Models.Services
            return _emprestimoLivroRepository.consultaEmprestimos();
         }
 
-        public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
+        public ConsultaEmprestimoDto consultaEmprestimo(int id,string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
         {
-           return _emprestimoLivroRepository.consultaEmprestimo(nomeLivro, nomeCliente, dataEmprestimo);
+           return _emprestimoLivroRepository.consultaEmprestimo(id,nomeLivro, nomeCliente, dataEmprestimo);
         }
 
         public void AtualizarStatusEmprestimosLivros()

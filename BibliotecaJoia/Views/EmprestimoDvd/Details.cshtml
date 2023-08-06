@@ -1,0 +1,65 @@
+﻿@model BibliotecaJoia.Models.DTO.ConsultaEmprestimoDvdDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes de Empréstimo</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered col-md-5">
+        <tbody>
+            <tr>
+                <th scope="row">iD</th>
+                <td>@Html.DisplayFor(model => model.Id)</td>
+            </tr>
+            <tr>
+                <th scope="row">Cliente</th>
+                <td>@Html.DisplayFor(model => model.Cliente)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">CPF</th>
+                <td>@Html.DisplayFor(model => model.CPF)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Dvd</th>
+                <td>@Html.DisplayFor(model => model.Dvd)</td>
+            </tr>
+            <tr>
+                <th scope="row">Genero</th>
+                <td>@Html.DisplayFor(model => model.Genero)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Data do empréstimo</th>
+                <td>@Html.DisplayFor(model => model.DataEmprestimo)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Data de devolução</th>
+                <td>@Html.DisplayFor(model => model.DataDevolucao)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Data devolução efetiva</th>
+                <td>@Html.DisplayFor(model => model.DataDevolucaoEfetiva)</td>
+            </tr>
+            <tr>
+                <th scope="row">Status do empréstimo</th>
+                <td>@Html.DisplayFor(model => model.StatusEmprestimoAtual)</td>
+            </tr>
+            <tr>
+                <th scope="row">Bibliotecario responsável</th>
+                <td>@Html.DisplayFor(model => model.LoginBibliotecario)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div>
+    @Html.ActionLink("Efetuar Devolução", "EfetuarDevolucao", new { emprestimoId = Model.Id, dvdId = Model.DvdId }) |
+    <a asp-action="Consulta">Voltar</a>
+</div>

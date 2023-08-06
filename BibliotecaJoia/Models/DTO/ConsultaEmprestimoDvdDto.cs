@@ -8,7 +8,10 @@ namespace BibliotecaJoia.Models.DTO
     public class ConsultaEmprestimoDvdDto
     {
         public int Id { get; set; }
-        public int Genero { get; set; }
+        public string Dvd { get; set; }
+        public string DvdId { get; set; }
+
+        public string Genero { get; set; }
 
         public string Cliente { get; set; }
         public string CPF { get; set; }

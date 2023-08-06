@@ -41,6 +41,11 @@ namespace BibliotecaJoia.Models.Contexts
             CadastrarLivro(objPersquisa);
         }
 
+        public void AtualizarStatusEmprestimosDvds()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AtualizarStatusEmprestimosLivros()
         {
             throw new NotImplementedException();
@@ -78,7 +83,12 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
-        public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
+        public ConsultaEmprestimoDto consultaEmprestimo(int id, string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ConsultaEmprestimoDvdDto consultaEmprestimoDvd(int id, string nomeDvd, string nomeCliente, DateTime dataEmprestimo)
         {
             throw new NotImplementedException();
         }
@@ -88,12 +98,27 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
+        public List<ConsultaEmprestimoDvdDto> consultaEmprestimosDvd()
+        {
+            throw new NotImplementedException();
+        }
+
         public void EfetuarDevolucao(int emprestimoId, string livroId)
         {
             throw new NotImplementedException();
         }
 
+        public void EfetuarDevolucaoDvd(int emprestimoId, string dvdId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void EfetuarEmprestimo(EmprestimoLivro emprestimoLivro)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EfetuarEmprestimo(EmprestimoDvd emprestimoDvd)
         {
             throw new NotImplementedException();
         }
@@ -173,6 +198,11 @@ namespace BibliotecaJoia.Models.Contexts
         }
 
         public Dvd PesquisarDvdPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dvd PesquisarDvdPorNome(string nome)
         {
             throw new NotImplementedException();
         }

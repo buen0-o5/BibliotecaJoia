@@ -75,12 +75,12 @@ namespace BibliotecaJoia.Controllers
             }
         }
 
-        public IActionResult Details(string nomeLivro, string nomeCliente, string dataEmprestimo)
+        public IActionResult Details(int id,string nomeLivro, string nomeCliente, string dataEmprestimo)
         {
             try
             {
                 DateTime dataEmprestimoFormatada = DateTime.Parse(dataEmprestimo);
-               ConsultaEmprestimoDto result = _emprestimoService.consultaEmprestimo(nomeLivro, nomeCliente, dataEmprestimoFormatada);
+               ConsultaEmprestimoDto result = _emprestimoService.consultaEmprestimo(id,nomeLivro, nomeCliente, dataEmprestimoFormatada);
                return View(result);
 
             }

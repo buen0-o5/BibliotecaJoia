@@ -102,7 +102,7 @@ namespace BibliotecaJoia.Models.Repositories
 
                 #endregion
 
-                #region Emprestimo
+                #region Emprestimo Livro
                 case TSql.EFETUAR_EMPRESTIMO_LIVRO:
                     sql = "insert into emprestimoLivro(clienteId, usuarioId, livroId,statusEmprestimoAtual,dataEmprestimo, dataDevolucao) values(@clienteId, @usuarioId,@livroId,@statusEmprestimoAtual, @dataEmprestimo, @dataDevolucao)";
                                                                                                                     
@@ -146,7 +146,7 @@ namespace BibliotecaJoia.Models.Repositories
                                  statusLivro sl on el.statusEmprestimoAtual = sl.id inner join
                                  usuario u on el.usuarioId = u.id
                              where
-                                 l.nome = @nomeLivro and  c.nome = @nomeCliente and dateadd(dd, 0, datediff(dd, 0, el.dataEmprestimo)) = @dataEmprestimo
+                                el.id = @id and l.nome = @nomeLivro and  c.nome = @nomeCliente and dateadd(dd, 0, datediff(dd, 0, el.dataEmprestimo)) = @dataEmprestimo
                               order by
                                    el.dataEmprestimo desc
                              ";
@@ -156,7 +156,7 @@ namespace BibliotecaJoia.Models.Repositories
                     break;
                 #endregion
 
-                #region Livro
+                #region DVD
                 case TSql.CADASTRAR_DVD:
                     sql = "insert into dvd (nome, genero, statusDvdId ) values (@nome, @genero, @statusDvdId  )";
                     break;
@@ -180,6 +180,59 @@ namespace BibliotecaJoia.Models.Repositories
 
                 case TSql.EXCLUIR_DVD:
                     sql = "delete from dvd where id = @id";
+                    break;
+                #endregion
+
+                #region Emprestimo Dvd
+                case TSql.EFETUAR_EMPRESTIMO_DVD:
+                    sql = "insert into emprestimoDvd(clienteId, usuarioId, dvdId,statusEmprestimoAtual,dataEmprestimo, dataDevolucao) values(@clienteId, @usuarioId,@dvdId,@statusEmprestimoAtual, @dataEmprestimo, @dataDevolucao)";
+                    break;
+                case TSql.EFETUAR_DEVOLUCAO_DVD:
+                    sql = "update emprestimoDvd set dataDevolucaoEfetiva = @dataDevolucaoEfetiva, statusEmprestimoAtual = @statusEmprestimoAtual  where id = @id";
+                    break;
+                case TSql.ATUALIZAR_STATUS_DVD:
+                    sql = "update dvd set statusDvdId = @statusDvdId where id = @id";
+                    break;
+                #endregion
+
+                #region Consulta Emprestimo
+                case TSql.CONSULTAR_EMPRESTIMOS_DVD:
+                    sql = @"select 
+                                 d.nome 'dvd', d.genero,
+                                 c.nome 'cliente', c.cpf, 
+                                 el.dataEmprestimo, el.dataDevolucao, el.dataDevolucaoEfetiva, 
+                                 sl.status 'status do livro', 
+                                 u.login 'biblioteca',
+                                 el.id, d.id 'dvdId'
+                             from 
+                                 dvd d inner join
+                                 emprestimoDvd el on el.dvdId = d.id inner join
+                                 cliente c on el.clienteId = c.id inner join
+                                 statusDvd sl on el.statusEmprestimoAtual = sl.id inner join
+                                 usuario u on el.usuarioId = u.id";
+                    break;
+                case TSql.PESQUISAR_EMPRESTIMOS_DVD:
+                    sql = @"select 
+                                 d.nome 'dvd', d.genero,
+                                 c.nome 'cliente', c.cpf, 
+                                 el.dataEmprestimo, el.dataDevolucao, el.dataDevolucaoEfetiva, 
+                                 sl.status 'status do dvd', 
+                                 u.login 'bibliotecario',
+                                 el.id, d.id 'dvdId'
+                             from 
+                                 dvd d inner join
+                                 emprestimoDvd el on el.dvdId = d.id inner join
+                                 cliente c on el.clienteId = c.id inner join
+                                 statusLivro sl on el.statusEmprestimoAtual = sl.id inner join
+                                 usuario u on el.usuarioId = u.id
+                             where
+                                el.id = @id and d.nome = @nomedvd and  c.nome = @nomeCliente and dateadd(dd, 0, datediff(dd, 0, el.dataEmprestimo)) = @dataEmprestimo
+                              order by
+                                   el.dataEmprestimo desc
+                             ";
+                    break;
+                case TSql.ATUALIZAR_STATUS_EMPRESTIMOS_DVD:
+                    sql = "SP_ATUALIZA_STATUS_EMPRESTIMO_DVD";
                     break;
                     #endregion
             }

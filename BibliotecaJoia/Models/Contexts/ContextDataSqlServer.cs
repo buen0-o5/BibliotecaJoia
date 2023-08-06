@@ -720,7 +720,6 @@ namespace BibliotecaJoia.Models.Contexts
             }
         }
 
-
         #endregion
 
         public List<ConsultaEmprestimoDto> consultaEmprestimos()
@@ -775,7 +774,7 @@ namespace BibliotecaJoia.Models.Contexts
          
         }
 
-        public ConsultaEmprestimoDto consultaEmprestimo(string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
+        public ConsultaEmprestimoDto consultaEmprestimo(int id,string nomeLivro, string nomeCliente, DateTime dataEmprestimo)
         {
             var emprestimo = new ConsultaEmprestimoDto();
             try
@@ -783,6 +782,7 @@ namespace BibliotecaJoia.Models.Contexts
                 var query = SqlManager.GetSql(TSql.PESQUISAR_EMPRESTIMOS_LIVROS);
 
                 var command = new SqlCommand(query, _connection);
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.Parameters.Add("@nomeLivro", SqlDbType.VarChar).Value = nomeLivro;
                 command.Parameters.Add("@nomeCliente", SqlDbType.VarChar).Value = nomeCliente;
                 command.Parameters.Add("@dataEmprestimo", SqlDbType.DateTime).Value = dataEmprestimo;
@@ -859,7 +859,7 @@ namespace BibliotecaJoia.Models.Contexts
         }
 
 
-
+        #region Pesquisar cliente e livro por nome
         public Cliente PesquisarClientePorNome(string nome)
         {
 
@@ -933,7 +933,42 @@ namespace BibliotecaJoia.Models.Contexts
                 throw ex;
             }
         }
+        public Dvd PesquisarDvdPorNome(string nome)
+        {
+            try
+            {
+                Dvd dvd = null;
+                var query = SqlManager.GetSql(TSql.PESQUISAR_DVD_NOME);
+                var commad = new SqlCommand(query, _connection);
+                commad.Parameters.Add("@nome", SqlDbType.VarChar).Value = nome;
 
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(commad);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var id = Int32.Parse(colunas[0].ToString());
+                    var nomeDvd = colunas[1].ToString();
+
+                    dvd = new Dvd { Id = id, nome = nomeDvd };
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return dvd;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
 
         #region Dvd
         public void AtualizarDvd(Dvd dvd)
@@ -1101,5 +1136,226 @@ namespace BibliotecaJoia.Models.Contexts
             }
         }
         #endregion
+
+        #region Emprestimo Dvd
+        public void EfetuarEmprestimo(EmprestimoDvd emprestimoDvd)
+        {
+            //processo de duas opereaçoes (conjunto de passos)
+            SqlTransaction transaction = null;
+            try
+            {
+                _connection.Open();//abrindo conexao
+                transaction = _connection.BeginTransaction(); //iniciando transaçao de banco de dados
+
+                var query = SqlManager.GetSql(TSql.EFETUAR_EMPRESTIMO_DVD);
+
+                var command = new SqlCommand(query, _connection, transaction);
+
+
+                command.Parameters.Add("@clienteId", SqlDbType.VarChar).Value = emprestimoDvd.ClienteId;
+                command.Parameters.Add("@usuarioId", SqlDbType.Int).Value = emprestimoDvd.UsuarioId;
+                command.Parameters.Add("@dvdId", SqlDbType.VarChar).Value = emprestimoDvd.DvdId;
+
+                command.Parameters.Add("@statusEmprestimoAtual", SqlDbType.VarChar).Value = StatusDvd.EMPRESTADO.GetHashCode();
+
+                command.Parameters.Add("@dataEmprestimo", SqlDbType.DateTime).Value = emprestimoDvd.DataEmprestimo;
+                command.Parameters.Add("@dataDevolucao", SqlDbType.DateTime).Value = emprestimoDvd.DataDevolucao;
+
+                command.ExecuteNonQuery();
+
+                var query2 = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_DVD);
+                var command2 = new SqlCommand(query2, _connection, transaction);
+
+                command2.Parameters.Add("@id", SqlDbType.VarChar).Value = emprestimoDvd.DvdId;
+                command2.Parameters.Add("@statusDvdId", SqlDbType.Int).Value = StatusDvd.EMPRESTADO.GetHashCode(); //retornando o codigo referente a essa opçao
+
+                command2.ExecuteNonQuery();
+
+                transaction.Commit(); //Confrima as alteraçoes nas duas consultas
+
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                    transaction.Rollback(); //se caso houver erro em apenas 1 das operaçoes e na outra ele executar, entao esse metodo desfaz a operaçao que ele executou
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        public void EfetuarDevolucaoDvd(int emprestimoId, string dvdId)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                _connection.Open();//abrindo conexao
+                transaction = _connection.BeginTransaction();
+
+                var query = SqlManager.GetSql(TSql.EFETUAR_DEVOLUCAO_DVD);
+                var command = new SqlCommand(query, _connection, transaction);
+
+
+                command.Parameters.Add("@id", SqlDbType.Int).Value = emprestimoId;
+                command.Parameters.Add("@statusEmprestimoAtual", SqlDbType.VarChar).Value = StatusDvd.DEVOLVIDO.GetHashCode();
+
+                command.Parameters.Add("@dataDevolucaoEfetiva", SqlDbType.DateTime).Value = DateTime.Now;
+
+                command.ExecuteNonQuery();
+
+                var query2 = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_DVD);
+                var command2 = new SqlCommand(query2, _connection, transaction);
+
+                command2.Parameters.Add("@id", SqlDbType.VarChar).Value = dvdId;
+                command2.Parameters.Add("@statusDvdId", SqlDbType.Int).Value = StatusDvd.DISPONIVEL.GetHashCode();
+
+                command2.ExecuteNonQuery();
+
+                transaction.Commit(); //Confrima as alteraçoes nas duas consultas
+
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                    transaction.Rollback();
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        public List<ConsultaEmprestimoDvdDto> consultaEmprestimosDvd()
+        {
+            var emprestimos = new List<ConsultaEmprestimoDvdDto>();
+            try
+            {
+                var query = SqlManager.GetSql(TSql.CONSULTAR_EMPRESTIMOS_DVD);
+
+                var command = new SqlCommand(query, _connection);
+
+                var dataset = new DataSet();
+
+                var adapter = new SqlDataAdapter(command);
+
+
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var emprestimo = new ConsultaEmprestimoDvdDto
+                    {
+                        Dvd = colunas[0].ToString(),
+                        Genero = colunas[1].ToString(),
+                        Cliente = colunas[2].ToString(),
+                        CPF = colunas[3].ToString(),
+                        DataEmprestimo = DateTime.Parse(colunas[4].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucao = DateTime.Parse(colunas[5].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucaoEfetiva = colunas[6].ToString(),
+                        StatusEmprestimoAtual = colunas[7].ToString(),
+                        LoginBibliotecario = colunas[8].ToString(),
+                        Id = Int32.Parse(colunas[9].ToString()),
+                        DvdId = colunas[10].ToString()
+                    };
+                    emprestimos.Add(emprestimo);
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return emprestimos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ConsultaEmprestimoDvdDto consultaEmprestimoDvd(int id, string nomeDvd, string nomeCliente, DateTime dataEmprestimo)
+        {
+            var emprestimo = new ConsultaEmprestimoDvdDto();
+            try
+            {
+                var query = SqlManager.GetSql(TSql.PESQUISAR_EMPRESTIMOS_DVD);
+
+                var command = new SqlCommand(query, _connection);
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@nomeDvd", SqlDbType.VarChar).Value = nomeDvd;
+                command.Parameters.Add("@nomeCliente", SqlDbType.VarChar).Value = nomeCliente;
+                command.Parameters.Add("@dataEmprestimo", SqlDbType.DateTime).Value = dataEmprestimo;
+
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    emprestimo = new ConsultaEmprestimoDvdDto
+                    {
+                        Dvd = colunas[0].ToString(),
+                        Genero = colunas[1].ToString(),
+                        Cliente = colunas[2].ToString(),
+                        CPF = colunas[3].ToString(),
+                        DataEmprestimo = DateTime.Parse(colunas[4].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucao = DateTime.Parse(colunas[5].ToString()).ToString("dd/MM/yyyy"),
+                        DataDevolucaoEfetiva = colunas[6].ToString(),
+                        StatusEmprestimoAtual = colunas[7].ToString(),
+                        LoginBibliotecario = colunas[8].ToString(),
+                        Id = Int32.Parse(colunas[9].ToString()),
+                        DvdId = colunas[10].ToString()
+
+                    };
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return emprestimo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        public void AtualizarStatusEmprestimosDvds()
+        {
+            try
+            {
+                var proc = SqlManager.GetSql(TSql.ATUALIZAR_STATUS_EMPRESTIMOS_DVD);
+
+                _connection.Open();
+                var command = new SqlCommand(proc, _connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+                command = null;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        #endregion
+
+
     }
 }

@@ -64,7 +64,9 @@ namespace BibliotecaJoia
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IEmprestimoLivroRepository, EmprestimoLivroRepository>();
+            
             services.AddScoped<IDvdRepository, DvdRepository>();
+            services.AddScoped<IEmprestimoDvdRepository, EmprestimDvdRepository>();
 
         }
         public void AddDependenciesServices(IServiceCollection services)
@@ -73,7 +75,11 @@ namespace BibliotecaJoia
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IEmprestimoLivroService, EmprestimoLivroService>();
+           
             services.AddScoped<IDvdService, DvdService>();
+
+
+            services.AddScoped<IEmprestimoDvdService, EmprestimoDvdService>();
         }
 
         public void ConfigureDataSource(IServiceCollection services)

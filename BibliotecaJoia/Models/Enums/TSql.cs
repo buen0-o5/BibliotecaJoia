@@ -46,6 +46,13 @@ namespace BibliotecaJoia.Models.Enums
         ATUALIZAR_DVD,
         EXCLUIR_DVD,
 
+        EFETUAR_EMPRESTIMO_DVD,
+        ATUALIZAR_STATUS_DVD,
+        EFETUAR_DEVOLUCAO_DVD,
+
+        CONSULTAR_EMPRESTIMOS_DVD,
+        PESQUISAR_EMPRESTIMOS_DVD,
+        ATUALIZAR_STATUS_EMPRESTIMOS_DVD,
 
     }
 }
