@@ -1,0 +1,36 @@
+﻿@model BibliotecaJoia.Models.DTO.DvdDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes</h1>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered col-md-3">
+        <tbody>
+            <tr>
+                <th scope="row">Id</th>
+                <td> @Html.DisplayFor(model => model.Id)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Nome</th>
+                <td>@Html.DisplayFor(model => model.nome)</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Autor</th>
+                <td>  @Html.DisplayFor(model => model.genero)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Atualizar", "Edit", new {  id = Model.Id }) |
+    <a asp-action="List">Voltar</a>
+</div>

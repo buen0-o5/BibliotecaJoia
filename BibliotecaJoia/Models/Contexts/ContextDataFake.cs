@@ -24,6 +24,11 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
+        public void AtualizarDvd(Dvd livro)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AtualizarLivro(Livro livro)
         {
             var objPersquisa = PesquisarLivroPorId(livro.Id);
@@ -47,6 +52,11 @@ namespace BibliotecaJoia.Models.Contexts
         }
 
         public void CadastrarCliente(Cliente cliente)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CadastrarDvd(Dvd dvd)
         {
             throw new NotImplementedException();
         }
@@ -98,6 +108,11 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
+        public void ExcluirDvd(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ExcluirLivro(int id)
         {
             throw new NotImplementedException();
@@ -118,6 +133,11 @@ namespace BibliotecaJoia.Models.Contexts
         }
 
         public List<Cliente> ListarCliente()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Dvd> ListarDvd()
         {
             throw new NotImplementedException();
         }
@@ -148,6 +168,11 @@ namespace BibliotecaJoia.Models.Contexts
         }
 
         public Cliente PesquisarClientePorNome(string nome)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dvd PesquisarDvdPorId(int id)
         {
             throw new NotImplementedException();
         }

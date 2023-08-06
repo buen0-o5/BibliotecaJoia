@@ -51,5 +51,15 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
         Cliente PesquisarClientePorNome(string nome);
         Livro PesquisarLivroPorNome(string nome);
 
+        //Dvd
+        void CadastrarDvd(Dvd dvd);
+        List<Dvd> ListarDvd();
+
+        Dvd PesquisarDvdPorId(int id);
+
+        void AtualizarDvd(Dvd livro);
+        void ExcluirDvd(int id);
+
+
     }
 }

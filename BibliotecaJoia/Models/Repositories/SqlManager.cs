@@ -154,11 +154,36 @@ namespace BibliotecaJoia.Models.Repositories
                 case TSql.ATUALIZAR_STATUS_EMPRESTIMOS_LIVROS:
                     sql = "SP_ATUALIZA_STATUS_EMPRESTIMO_LIVRO";
                     break;
+                #endregion
+
+                #region Livro
+                case TSql.CADASTRAR_DVD:
+                    sql = "insert into dvd (nome, genero, statusDvdId ) values (@nome, @genero, @statusDvdId  )";
+                    break;
+
+                case TSql.LISTAR_DVD:
+                    sql = "select id, nome, genero, statusDvdId from dvd order by nome";
+                    break;
+
+                case TSql.PESQUISAR_DVD:
+                    sql = "select  id, nome, genero from dvd where id = @id";
+                    break;
+
+                case TSql.PESQUISAR_DVD_NOME:
+                    sql = "select id, nome, genero, statusDvdId from dvd where nome like @nome + '%'";
+                    //  SELECT convert(varchar(36), id) 'id', nome, autor, editora, statusLivroId FROM livro WHERE nome like  'TESTaa%';
+                    break;
+
+                case TSql.ATUALIZAR_DVD:
+                    sql = "update dvd set nome = @nome, genero = @genero  from dvd where id = @id ";
+                    break;
+
+                case TSql.EXCLUIR_DVD:
+                    sql = "delete from dvd where id = @id";
+                    break;
                     #endregion
-
-
             }
-            
+
             return sql;
         }
     }

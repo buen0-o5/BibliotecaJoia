@@ -933,5 +933,173 @@ namespace BibliotecaJoia.Models.Contexts
                 throw ex;
             }
         }
+
+
+        #region Dvd
+        public void AtualizarDvd(Dvd dvd)
+        {
+            try
+            {
+                _connection.Open(); //abre a conexao
+                var query = SqlManager.GetSql(TSql.ATUALIZAR_DVD);
+
+                var command = new SqlCommand(query, _connection);
+
+                command.Parameters.Add("@id", SqlDbType.Int).Value = dvd.Id;
+                command.Parameters.Add("@nome", SqlDbType.VarChar).Value = dvd.nome;
+                command.Parameters.Add("@genero", SqlDbType.VarChar).Value = dvd.genero;
+
+                command.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        public void CadastrarDvd(Dvd dvd)
+        {
+            try
+            {
+                _connection.Open();
+
+                var query = SqlManager.GetSql(TSql.CADASTRAR_DVD);
+
+                var command = new SqlCommand(query, _connection);
+
+                command.Parameters.Add("@id", SqlDbType.Int).Value = dvd.Id;
+                command.Parameters.Add("@nome", SqlDbType.VarChar).Value = dvd.nome;
+                command.Parameters.Add("@genero", SqlDbType.VarChar).Value = dvd.genero;
+                command.Parameters.Add("@statusDvdId", SqlDbType.Int).Value = dvd.statusDvd.GetHashCode();
+
+                //executa a operaçao
+                command.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        public void ExcluirDvd(int id)
+        {
+            try
+            {
+                _connection.Open();
+                var query = SqlManager.GetSql(TSql.EXCLUIR_DVD);
+
+                var command = new SqlCommand(query, _connection);
+
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
+        public List<Dvd> ListarDvd()
+        {
+            var dvds = new List<Dvd>();
+            try
+            {
+                var query = SqlManager.GetSql(TSql.LISTAR_DVD);
+
+                var command = new SqlCommand(query, _connection);
+
+                var dataset = new DataSet();
+
+                var adapter = new SqlDataAdapter(command);
+
+
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var id = Int32.Parse(colunas[0].ToString());
+                    var nome = colunas[1].ToString();
+                    var genero = colunas[2].ToString();
+                    var statusDvdId = colunas[3].ToString();
+
+                    var dvd = new Dvd { Id = id, nome = nome, genero = genero, statusDvdId = Int32.Parse(statusDvdId) };
+                    dvd.statusDvd = GerenciadorDeStatus.PesquisarStatusDvdPeloId(dvd.statusDvdId);
+                    dvds.Add(dvd);
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return dvds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public Dvd PesquisarDvdPorId(int id)
+        {
+            try
+            {
+                Dvd dvd = null;
+
+                var query = SqlManager.GetSql(TSql.PESQUISAR_DVD);
+
+                var command = new SqlCommand(query, _connection);
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var codigo = Int32.Parse(colunas[0].ToString());
+                    var nome = colunas[1].ToString();
+                    var genero = colunas[2].ToString();
+
+
+                    dvd = new Dvd { Id = id, nome = nome, genero = genero };
+
+
+                }
+                adapter = null;
+                dataset = null;
+
+                return dvd;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
     }
 }

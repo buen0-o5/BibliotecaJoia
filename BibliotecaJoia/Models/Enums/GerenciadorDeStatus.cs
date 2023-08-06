@@ -64,5 +64,28 @@ namespace BibliotecaJoia.Models.Enums
             var status = statusClientesList.FirstOrDefault(p => p.ToString().Equals(nomePesquisa));
             return status;
         }
+
+        private static List<StatusDvd> statusDvdList = new List<StatusDvd>
+        {
+             StatusDvd.DISPONIVEL,
+             StatusDvd.EMPRESTADO,
+             StatusDvd.ATRASO_DEVOLUCAO,
+             StatusDvd.USO_LOCAL,
+             StatusDvd.DEVOLVIDO
+        };
+
+        public static StatusDvd PesquisarStatusDvdPeloId(int id)
+        {
+            var status = statusDvdList.FirstOrDefault(p => p.GetHashCode().Equals(id));
+            return status;
+        }
+        public static StatusDvd PesquisarStatusDoDvdPeloNome(string nome)
+        {
+            var nomePesquisa = nome.ToUpper().Replace(" ", "_");
+            var status = statusDvdList.FirstOrDefault(p => p.ToString().Equals(nomePesquisa));
+            return status;
+        }
+
+
     }
 }
