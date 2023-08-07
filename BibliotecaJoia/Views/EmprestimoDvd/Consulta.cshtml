@@ -4,7 +4,7 @@
     ViewData["Title"] = "Consulta";
 }
 
-<h1>Consulta de Emprestimo de Dvd</h1>
+<h1>Consulta de Empréstimo de Dvd</h1>
 
 <p>
     <a asp-action="Index">Novo Emprestimo Dvd</a>
@@ -22,14 +22,14 @@
                 @Html.DisplayNameFor(model => model.Cliente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataEmprestimo)
+                @Html.DisplayName("Data do Empréstimo")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataDevolucao)
+                @Html.DisplayName("Data de Devolução")
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.StatusEmprestimoAtual)
+                @Html.DisplayName("Status do Empréstimo")
             </th>
             <th></th>
         </tr>

@@ -25,6 +25,107 @@ namespace BibliotecaJoia.Controllers
             return View();
         }
 
+        public IActionResult List()
+        {
+            try
+            {
+                var usuarios = _usuarioService.Listar();
+                return View(usuarios);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Login,Senha")] UsuarioDto usuario)
+        {
+            try
+            {
+
+                _usuarioService.Cadastrar(usuario);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+
+        public IActionResult Edit(int? Id)
+        {
+
+            if (Id == null)
+                return NotFound();
+
+            var usuario = _usuarioService.PesquisarPorId(Id.Value);
+            if (usuario == null)
+                return NotFound();
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([Bind("login,senha")] UsuarioDto usuario)
+        {
+            if (usuario.Id == null)
+                return NotFound();
+            try
+            {
+
+                _usuarioService.Atualizar(usuario);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View();
+        }
+        public IActionResult Details(int? id)
+        {
+
+            if (id == null)
+                return NotFound();
+            var cliente = _usuarioService.PesquisarPorId(id.Value);
+
+            if (cliente == null)
+                return NotFound();
+
+            return View(cliente);
+        }
+        public IActionResult Delete(int? id)
+        {
+
+            if (id == null)
+                return NotFound();
+
+            var usuario = _usuarioService.PesquisarPorId(id.Value);
+            if (usuario == null)
+                return NotFound();
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public IActionResult Delete([Bind("login,senha")] UsuarioDto usuario)
+        {
+            _usuarioService.Excluir(usuario.Id);
+            return RedirectToAction("List");
+        }
+       
+        
         [HttpPost]
         public IActionResult Login(string login, string senha )
         {
@@ -57,7 +158,7 @@ namespace BibliotecaJoia.Controllers
                     TempData["loginError"] = false;// Indica que não houve erro de login.
 
                     // Redireciona para a página de empréstimos após o login bem-sucedido.
-                    return Redirect("/Emprestimo/Consulta");
+                    return Redirect("/Home");
                 }
                 else
                 {
@@ -89,7 +190,7 @@ namespace BibliotecaJoia.Controllers
 
 
                 TempData["loginError"] = false;
-                     return Redirect("/Home");
+                return RedirectToAction("Index");
 
 
             }

@@ -39,7 +39,9 @@
                     <input type="submit" class="btn btn-success" value="Entrar" />
                 </div>
             </div>
-
+            <div>
+                <a asp-action="Create" class="link-info">Cadastrar</a>
+            </div>
             @{
                 if (TempData["loginError"] != null && (bool)TempData["loginError"] == true)
                 {

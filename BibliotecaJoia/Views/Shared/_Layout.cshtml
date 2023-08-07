@@ -20,57 +20,76 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="divHeader navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1" style="height: 40px;">
+                <div class="divHeader navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+                    @{
+                        //Usando a session na view
+                        /*
+                        Nao e possivel usar na _Layout
+                        @page
+                          var login = HttpContext.Session.GetString("_Login"); para trabalhar com essa session e necessario usa a @page(pagina com asp.core padrao)
+                        */
+                        string login = Context.Session.GetString("_Login");
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Livro" asp-action="List">Livros</a>
-                        </li>
+                        if (login != null)
+                        {
+                                        <ul class="navbar-nav flex-grow-1" style="height: 40px;">
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                    Cadastro
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" asp-area="" asp-controller="Cliente" asp-action="List">Clientes</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-area="" asp-controller="Livro" asp-action="List">Livros</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-area="" asp-controller="Dvd" asp-action="List">Dvds</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                       
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                 Empréstimo
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                       <a class="dropdown-item" asp-area="" asp-controller="Emprestimo" asp-action="Consulta">Empréstimo de livros</a>
 
+                                                   </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-area="" asp-controller="EmprestimoDvd" asp-action="Consulta">Empréstimo de Dvds</a>
 
-                        @{
-                            //Usando a session na view
-                            /*
-                            Nao e possivel usar na _Layout
-                            @page
-                              var login = HttpContext.Session.GetString("_Login"); para trabalhar com essa session e necessario usa a @page(pagina com asp.core padrao)
-                            */
-                            string login = Context.Session.GetString("_Login");
+                                                    </li>
+                                                </ul>
+                                            </li>
 
-                            if (login != null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="List">Clientes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Dvd" asp-action="List">Dvds</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Emprestimo" asp-action="Consulta">Emprestimo de livros</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="EmprestimoDvd" asp-action="Consulta">Emprestimo de Dvds</a>
-                                </li>
+                                        </ul>   
+                                       
+                                        <ul class="nav navbar-nav  navbar-right" style="height: 40px;">
+                                            <li class="nav-item usuario">
+                                                <p class="nav-link text-dark ">Usuario: @login </p>
+                                            </li>
 
-                                <li class="nav-item usuario">
-                                    <p class="nav-link text-dark ">Usuario: @login </p>
-                                </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Sair</a>
+                                            </li>
+                                        </ul>
+                          
+                        }
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Sair</a>
-                                </li>
-                            }
-
-                            else
-                            {
+                        @*else
+                        {
+                            <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Login</a>
                                 </li>
-                            }
-                        }
-
-
-                    </ul>
+                            </ul>
+                         
+                        }*@
+                    }
                 </div>
             </div>
         </nav>
