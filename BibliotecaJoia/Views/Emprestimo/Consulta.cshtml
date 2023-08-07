@@ -62,7 +62,7 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Detalhes", "Details", new { id = item.Id, nomeCliente = item.Cliente, nomeLivro = item.Livro, DataEmprestimo = item.DataEmprestimo }) 
+                @Html.ActionLink("Detalhe", "Details", new { id = item.Id, nomeCliente = item.Cliente, nomeLivro = item.Livro, DataEmprestimo = item.DataEmprestimo }, new { @class = "btn btn-info"}) 
             </td>
         </tr>
 }

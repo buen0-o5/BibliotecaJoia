@@ -58,6 +58,6 @@
 
 
 <div>
-    @Html.ActionLink("Atualizar", "Edit", new { id = Model.Id }) |
-    <a asp-action="List">Voltar</a>
+    @Html.ActionLink("Atualizar", "Edit", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+    <a asp-action="List" class="btn btn-primary">Voltar</a>
 </div>

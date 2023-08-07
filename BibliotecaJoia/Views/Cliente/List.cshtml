@@ -6,7 +6,7 @@
     string login = Context.Session.GetString("_Login");
 }
 
-<h1>Cadastro de Clientes</h1>
+<h1>Clientes</h1>
 @if (login != null)
 {
 <p>
@@ -52,9 +52,9 @@
                     @if (login != null)
                     {
                         <p>
-                            @Html.ActionLink("Atualizar", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Detalhe", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                            @Html.ActionLink("Atualizar", "Edit", new { id = item.Id }, new {@class = "btn btn-secondary" }) 
+                            @Html.ActionLink("Detalhe", "Details", new { id = item.Id }, new { @class = "btn btn-info" }) 
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                         </p>
 
                     }

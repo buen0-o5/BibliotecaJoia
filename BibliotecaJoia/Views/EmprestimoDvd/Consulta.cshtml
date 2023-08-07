@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Index">Novo Emprestimo Dvd</a>
 </p>
-<table class="table">
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
@@ -64,7 +64,7 @@
             </td>
             <td>
 
-                @Html.ActionLink("Detalhe", "Details", new { id = item.Id, nomeCliente = item.Cliente, nomeDvd = item.Dvd, DataEmprestimo = item.DataEmprestimo }) 
+                @Html.ActionLink("Detalhe", "Details", new { id = item.Id, nomeCliente = item.Cliente, nomeDvd = item.Dvd, DataEmprestimo = item.DataEmprestimo }, new { @class = "btn btn-info" }) 
             </td>
         </tr>
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "List";
 }
 
-<h1>Cadastro de Dvds</h1>
+<h1>Dvds</h1>
 
 <p>
     <a asp-action="Create">Adicionar Livro</a>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.genero)
             </td>
             <td>
-                @Html.ActionLink("Atualizar", "Edit", new {  id=item.Id  })  |
-                @Html.ActionLink("Detalhe", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                @Html.ActionLink("Atualizar", "Edit", new {  id=item.Id  }, new { @class = "btn btn-secondary" })  
+                @Html.ActionLink("Detalhe", "Details", new { id = item.Id }, new { @class = "btn btn-info" }) 
+                @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
 }

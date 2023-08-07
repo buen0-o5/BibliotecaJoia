@@ -60,6 +60,6 @@
 
 
 <div>
-    @Html.ActionLink("Efetuar Devolução", "EfetuarDevolucao", new { emprestimoId = Model.Id, dvdId = Model.DvdId }) |
-    <a asp-action="Consulta">Voltar</a>
+    @Html.ActionLink("Efetuar Devolução", "EfetuarDevolucao", new { emprestimoId = Model.Id, dvdId = Model.DvdId }, new  { @class = "btn btn-light"}) 
+    <a asp-action="Consulta" class="btn btn-primary" >Voltar</a>
 </div>
