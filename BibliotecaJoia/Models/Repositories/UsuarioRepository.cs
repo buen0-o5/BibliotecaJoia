@@ -46,5 +46,10 @@ namespace BibliotecaJoia.Models.Repositories
         {
             return _contextData.PesquisarUsuarioPorId(id);
         }
+
+        public Usuario PesquisarUsarioPorNome(string login)
+        {
+            return _contextData.PesquisarUsarioPorNome(login);
+        }
     }
 }

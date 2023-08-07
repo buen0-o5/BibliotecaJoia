@@ -225,7 +225,12 @@ namespace BibliotecaJoia.Models.Contexts
             throw new NotImplementedException();
         }
 
-        public Usuario PesquisarUsuarioPorId(int id)
+        public Usuario PesquisarUsarioPorNome(string login)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario PesquisarUsuarioPorId(int nome)
         {
             throw new NotImplementedException();
         }

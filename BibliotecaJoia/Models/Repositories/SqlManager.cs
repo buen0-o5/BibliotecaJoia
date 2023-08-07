@@ -80,7 +80,10 @@ namespace BibliotecaJoia.Models.Repositories
                 case TSql.CADASTRAR_USUARIO:
                     sql = "insert into usuario (login, senha ) values (@login, @senha)";
                     break;
-
+                case TSql.PESQUISAR_USUARIO_NOME:
+                    sql = "select  id, login from usuario where login like @login + '%'";
+                    break;
+            
                 case TSql.LISTAR_USUARIO:
                     sql = "select id, login, senha from usuario";
                     break;

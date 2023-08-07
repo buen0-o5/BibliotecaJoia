@@ -54,6 +54,7 @@ namespace BibliotecaJoia.Models.Contracts.Contexto
         Cliente PesquisarClientePorNome(string nome);
         Livro PesquisarLivroPorNome(string nome);
         Dvd PesquisarDvdPorNome(string nome);
+        Usuario PesquisarUsarioPorNome(string login);
         #endregion
 
         #region Dvd

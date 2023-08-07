@@ -100,5 +100,18 @@ namespace BibliotecaJoia.Models.Services
                 throw ex;
             }
         }
+
+        public UsuarioDto PesquisarUsarioPorNome(string login)
+        {
+            try
+            {
+                var usuario = _usuarioRepository.PesquisarUsarioPorNome(login);
+                return usuario?.ConverteParaDTO();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

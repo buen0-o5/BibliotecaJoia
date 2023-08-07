@@ -10,5 +10,6 @@ namespace BibliotecaJoia.Models.Contracts.Services
    public interface IUsuarioService: IService<UsuarioDto, int>
     {
         UsuarioDto EfetuarLogin(UsuarioDto usuario);
+        UsuarioDto PesquisarUsarioPorNome(string login);
     }
 }

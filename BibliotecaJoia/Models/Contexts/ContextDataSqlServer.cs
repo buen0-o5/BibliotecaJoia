@@ -968,6 +968,42 @@ namespace BibliotecaJoia.Models.Contexts
                 throw ex;
             }
         }
+
+        public Usuario PesquisarUsarioPorNome(string login)
+        {
+            try
+            {
+                Usuario usuario = null;
+                var query = SqlManager.GetSql(TSql.PESQUISAR_USUARIO_NOME);
+                var commad = new SqlCommand(query, _connection);
+                commad.Parameters.Add("@login", SqlDbType.VarChar).Value = login;
+
+                var dataset = new DataSet();
+                var adapter = new SqlDataAdapter(commad);
+                adapter.Fill(dataset);
+
+                var rows = dataset.Tables[0].Rows;
+
+                foreach (DataRow item in rows)
+                {
+                    var colunas = item.ItemArray;
+
+                    var id = Int32.Parse(colunas[0].ToString());
+                    var loginUsu = colunas[1].ToString();
+
+                    usuario = new Usuario { Id = id, Login = loginUsu };
+                }
+
+                adapter = null;
+                dataset = null;
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region Dvd
@@ -1354,6 +1390,7 @@ namespace BibliotecaJoia.Models.Contexts
                     _connection.Close();
             }
         }
+
         #endregion
 
 

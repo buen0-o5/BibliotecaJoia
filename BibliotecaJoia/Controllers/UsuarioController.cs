@@ -47,13 +47,27 @@ namespace BibliotecaJoia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Login,Senha")] UsuarioDto usuario)
+        public IActionResult Create(string login, string senha )
         {
             try
             {
+                TempData["CadastroError"] = false;
+                UsuarioDto usuario = new UsuarioDto { Login = login, Senha = senha };
 
-                _usuarioService.Cadastrar(usuario);
-                return RedirectToAction("Index");
+                var loginUnico = _usuarioService.PesquisarUsarioPorNome(usuario.Login);
+
+                if (loginUnico == null)
+                {
+                    _usuarioService.Cadastrar(usuario);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["CadastroError"] = true;
+                    return RedirectToAction("Create");
+                }
+
+           
             }
             catch (Exception ex)
             {

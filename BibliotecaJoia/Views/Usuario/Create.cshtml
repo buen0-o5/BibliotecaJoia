@@ -25,6 +25,16 @@
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
+            @{
+                if (TempData["CadastroError"] != null && (bool)TempData["CadastroError"] == true)
+                {
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <p style="color:red; font-weight:bold">Nome de login que já cadastrado!</p>
+                        </div>
+                    </div>
+                }
+            }
         </form>
     </div>
 </div>
